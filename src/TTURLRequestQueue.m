@@ -27,6 +27,7 @@
 #import "Three20/TTRequestLoader.h"
 
 // Core
+#import "Three20/TTGlobalCore.h"
 #import "Three20/TTGlobalCorePaths.h"
 #import "Three20/TTDebugFlags.h"
 #import "Three20/TTDebug.h"
@@ -474,7 +475,7 @@ static TTURLRequestQueue* gMainQueue = nil;
       NSString* etag = [[TTURLCache sharedCache] etagForKey:request.cacheKey];
       TTDCONDITIONLOG(TTDFLAG_ETAGS, @"Etag: %@", etag);
 
-      if (nil != etag) {
+      if (TTIsStringWithAnyText(etag)) {
         // By setting the etag here, we let the server know what the last "version" of the file
         // was that we saw. If the file has changed since this etag, we'll get data back in our
         // response. Otherwise we'll get a 302.
@@ -529,8 +530,24 @@ static TTURLRequestQueue* gMainQueue = nil;
 
         } else {
           // At last, we have our etag. Let's cache it.
-          TTDCONDITIONLOG(TTDFLAG_ETAGS, @"Response etag: %@", etag);
-          [[TTURLCache sharedCache] storeEtag:etag forKey:loader.cacheKey];
+
+          // First, let's pull out the etag key. This is necessary due to some servers who append
+          // information to the etag, such as -gzip for a gzipped request. However, the etag
+          // standard states that etags are defined as a quoted string, and that is all.
+          NSRange firstQuote = [etag rangeOfString:@"\""];
+          NSRange lastQuote = [etag rangeOfString:@"\"" options:NSBackwardsSearch];
+          if (0 == firstQuote.length || 0 == lastQuote.length ||
+              firstQuote.location == lastQuote.location) {
+            TTDWARNING(@"Invalid etag format. Unable to find a quoted key.");
+
+          } else {
+            NSRange keyRange;
+            keyRange.location = firstQuote.location;
+            keyRange.length = (lastQuote.location - firstQuote.location) + 1;
+            NSString* etagKey = [etag substringWithRange:keyRange];
+            TTDCONDITIONLOG(TTDFLAG_ETAGS, @"Response etag: %@", etagKey);
+            [[TTURLCache sharedCache] storeEtag:etagKey forKey:loader.cacheKey];
+          }
         }
       }
 

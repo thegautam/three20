@@ -17,6 +17,7 @@
 #import "Three20/TTURLRequestQueue.h"
 
 // Network
+#import "Three20/TTGlobalNetwork.h"
 #import "Three20/TTURLRequest.h"
 #import "Three20/TTURLRequestDelegate.h"
 #import "Three20/TTUserInfo.h"
@@ -557,6 +558,48 @@ static TTURLRequestQueue* gMainQueue = nil;
     }
     [loader dispatchLoaded:[NSDate date]];
   }
+  [loader release];
+
+  [self loadNextInQueue];
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)               loader:(TTRequestLoader*)loader
+    didLoadUnmodifiedResponse:(NSHTTPURLResponse*)response {
+  [loader retain];
+  [self removeLoader:loader];
+
+  // The goal here is to load data from the cache if wasn't modified. We set the expiration date
+  // to never with hopes that the data will still be around.
+  // However, this doesn't account for cases where the data may have been removed.
+  // If the data has been removed, this request currently has undefined results.
+  // TODO (jverkoey April 22, 2010): Provide a solution for missing cache items.
+  NSData* data = nil;
+  NSError* error = nil;
+  NSDate* timestamp = nil;
+  if ([self loadFromCache:loader.urlPath cacheKey:loader.cacheKey
+                  expires:TT_CACHE_EXPIRATION_AGE_NEVER
+                 fromDisk:!_suspended && (loader.cachePolicy & TTURLRequestCachePolicyDisk)
+                     data:&data error:&error timestamp:&timestamp]) {
+
+    if (nil == error) {
+      error = [loader processResponse:response data:data];
+    }
+
+    if (nil == error) {
+      for (TTURLRequest* request in loader.requests) {
+        request.respondedFromCache = YES;
+      }
+      [loader dispatchLoaded:[NSDate date]];
+    }
+
+  }
+
+  if (nil != error) {
+    [loader dispatchError:error];
+  }
+
   [loader release];
 
   [self loadNextInQueue];

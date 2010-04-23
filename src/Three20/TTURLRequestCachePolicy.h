@@ -26,7 +26,7 @@ typedef enum {
   TTURLRequestCachePolicyDisk    = 2,
   TTURLRequestCachePolicyNetwork = 4,
   TTURLRequestCachePolicyNoCache = 8,
-  TTURLRequestCachePolicyEtag    = 16,
+  TTURLRequestCachePolicyEtag    = 16 | TTURLRequestCachePolicyDisk,
   TTURLRequestCachePolicyLocal
   = (TTURLRequestCachePolicyMemory | TTURLRequestCachePolicyDisk),
   TTURLRequestCachePolicyDefault

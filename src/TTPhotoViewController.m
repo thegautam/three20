@@ -186,17 +186,7 @@ static const NSInteger kActivityLabelTag          = 96;
                   _centerPhotoIndex+1, _photoSource.numberOfPhotos];
   }
 
-  if (![self.ttPreviousViewController isKindOfClass:[TTThumbsViewController class]]) {
-    if (_photoSource.numberOfPhotos > 1) {
-      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                                initWithTitle:TTLocalizedString(@"See All", @"See all photo thumbnails")
-                                                style:UIBarButtonItemStyleBordered target:self action:@selector(showThumbnails)];
-    } else {
-      self.navigationItem.rightBarButtonItem = nil;
-    }
-  } else {
-    self.navigationItem.rightBarButtonItem = nil;
-  }
+  self.navigationItem.rightBarButtonItem = nil;
 
   UIBarButtonItem* playButton = [_toolbar itemWithTag:1];
   playButton.enabled = _photoSource.numberOfPhotos > 1;
@@ -454,7 +444,7 @@ static const NSInteger kActivityLabelTag          = 96;
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
   _scrollView.dataSource = self;
-  _scrollView.backgroundColor = [UIColor blackColor];
+  _scrollView.backgroundColor = [UIColor whiteColor];
   _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [_innerView addSubview:_scrollView];
 

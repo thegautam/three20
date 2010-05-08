@@ -1,6 +1,6 @@
 #import "MockPhotoSource.h"
 
-#import "Three20/NSArrayAdditions.h"
+#import "Three20Core/NSArrayAdditions.h"
 
 @implementation MockPhotoSource
 
@@ -122,9 +122,9 @@
   return _photos.count-1;
 }
 
-- (id<TTPhoto>)photoAtIndex:(NSInteger)index {
-  if (index < _photos.count) {
-    id photo = [_photos objectAtIndex:index];
+- (id<TTPhoto>)photoAtIndex:(NSInteger)photoIndex {
+  if (photoIndex < _photos.count) {
+    id photo = [_photos objectAtIndex:photoIndex];
     if (photo == [NSNull null]) {
       return nil;
     } else {

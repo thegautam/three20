@@ -1,5 +1,5 @@
 #import "YouTubeTestController.h"
-#import <Three20UI/UIViewAdditions.h>
+#import <Three20/UIViewAdditions.h>
 
 @implementation YouTubeTestController
 

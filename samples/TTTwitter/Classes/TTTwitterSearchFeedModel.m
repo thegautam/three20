@@ -18,8 +18,6 @@
 
 #import "TTTwitterTweet.h"
 
-#import <extThree20JSON/extThree20JSON.h>
-
 static NSString* kTwitterSearchFeedFormat = @"http://search.twitter.com/search.json?q=%@";
 
 
@@ -73,7 +71,7 @@ static NSString* kTwitterSearchFeedFormat = @"http://search.twitter.com/search.j
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)requestDidFinishLoad:(TTURLRequest*)request {
-  TTURLJSONResponse* response = request.response;
+  TTURLXMLResponse* response = request.response;
   TTDASSERT([response.rootObject isKindOfClass:[NSDictionary class]]);
 
   NSDictionary* feed = response.rootObject;

@@ -1,5 +1,5 @@
 #import "ButtonTestController.h"
-#import <Three20UI/UIViewAdditions.h>
+#import <Three20/UIViewAdditions.h>
 
 @interface ButtonTestStyleSheet : TTDefaultStyleSheet
 @end

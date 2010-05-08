@@ -30,6 +30,7 @@
 #import "Three20/UIViewControllerAdditions.h"
 #import "Three20/UINavigationControllerAdditions.h"
 #import "Three20/UIToolbarAdditions.h"
+#import "Three20/FaceView.h"
 
 // Style
 #import "Three20/TTGlobalStyle.h"
@@ -440,11 +441,14 @@ static const NSInteger kActivityLabelTag          = 96;
   _innerView = [[UIView alloc] initWithFrame:innerFrame];
   _innerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [self.view addSubview:_innerView];
+	
+  _faceView = [[FaceView alloc] initWithFrame:screenFrame];
+  [_innerView addSubview:_faceView];
 
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
   _scrollView.dataSource = self;
-  _scrollView.backgroundColor = [UIColor whiteColor];
+  _scrollView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
   _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [_innerView addSubview:_scrollView];
 
@@ -473,7 +477,7 @@ static const NSInteger kActivityLabelTag          = 96;
   _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
   _toolbar.items = [NSArray arrayWithObjects:
                     space, _previousButton, space, _nextButton, space, nil];
-  [_innerView addSubview:_toolbar];
+  [_innerView addSubview:_toolbar];		
 }
 
 

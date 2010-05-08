@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5665BA74118EBE8C00470497 /* FaceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5665BA72118EBE8C00470497 /* FaceView.h */; };
+		5665BA75118EBE8C00470497 /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5665BA73118EBE8C00470497 /* FaceView.m */; };
 		6E14D7E810E09A2300445222 /* TTURLDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E14D7E610E09A2300445222 /* TTURLDataResponse.m */; };
 		6E14D81410E0A12700445222 /* TTURLImageResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E14D81210E0A12700445222 /* TTURLImageResponse.m */; };
 		6E14D82A10E0A16700445222 /* TTURLImageResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E14D82810E0A16700445222 /* TTURLImageResponse.h */; };
@@ -533,6 +535,8 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		5665BA72118EBE8C00470497 /* FaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceView.h; sourceTree = "<group>"; };
+		5665BA73118EBE8C00470497 /* FaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceView.m; sourceTree = "<group>"; };
 		6E14D7E610E09A2300445222 /* TTURLDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTURLDataResponse.m; sourceTree = "<group>"; };
 		6E14D81210E0A12700445222 /* TTURLImageResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTURLImageResponse.m; sourceTree = "<group>"; };
 		6E14D82810E0A16700445222 /* TTURLImageResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTURLImageResponse.h; path = Three20/TTURLImageResponse.h; sourceTree = "<group>"; };
@@ -1886,6 +1890,8 @@
 		BEF31F450F352E64000DE5D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5665BA72118EBE8C00470497 /* FaceView.h */,
+				5665BA73118EBE8C00470497 /* FaceView.m */,
 				BEF31F5F0F352E64000DE5D2 /* TTView.h */,
 				BEF31F4A0F352E64000DE5D2 /* TTView.m */,
 				BEF31F5D0F352E64000DE5D2 /* TTImageView.h */,
@@ -2332,6 +2338,7 @@
 				6E5F22C311813D23004BEBA9 /* SBJsonParser.h in Headers */,
 				6E5F22C511813D23004BEBA9 /* SBJsonWriter.h in Headers */,
 				6E5F22D311814CF2004BEBA9 /* TTURLJSONResponse.h in Headers */,
+				5665BA74118EBE8C00470497 /* FaceView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2642,6 +2649,7 @@
 				6E5F22C411813D23004BEBA9 /* SBJsonParser.m in Sources */,
 				6E5F22C611813D23004BEBA9 /* SBJsonWriter.m in Sources */,
 				6E5F22D111814CE6004BEBA9 /* TTURLJSONResponse.m in Sources */,
+				5665BA75118EBE8C00470497 /* FaceView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,6 +19,7 @@
 #import "Three20/TTScrollViewDelegate.h"
 #import "Three20/TTScrollViewDataSource.h"
 #import "Three20/TTThumbsViewControllerDelegate.h"
+#import "FaceView.h"
 
 @protocol TTPhotoSource;
 @class TTScrollView;
@@ -36,6 +37,7 @@
   UIView*           _innerView;
   TTScrollView*     _scrollView;
   TTPhotoView*      _photoStatusView;
+  FaceView*         _faceView;
 
   UIToolbar*        _toolbar;
   UIBarButtonItem*  _nextButton;

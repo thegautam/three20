@@ -56,6 +56,8 @@
 
   TTThumbsViewController* _thumbsController;
 
+  UISegmentedControl*     _segmentedControl;	
+	
   id<TTPhotoSource> _photoSource;
 }
 

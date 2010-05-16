@@ -456,6 +456,14 @@ static const NSInteger kActivityLabelTag          = 96;
 	
   _faceView = [[FaceView alloc] initWithFrame:screenFrame];
   [_innerView addSubview:_faceView];
+  
+  _progressView = [[UIImageView alloc] initWithImage:
+                   TTIMAGE(@"bundle://Three20.bundle/images/wood.png")];
+  CGPoint l;
+  l.x = _innerView.center.x;
+  l.y = _innerView.height - (_progressView.height / 2);
+  _progressView.center = l;
+  [_innerView addSubview:_progressView];
 
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
@@ -467,19 +475,21 @@ static const NSInteger kActivityLabelTag          = 96;
   _segmentedControl = [[UISegmentedControl alloc] initWithItems:
     [NSArray arrayWithObjects:
       TTIMAGE(@"bundle://Three20.bundle/images/previousIcon.png"),
-	  TTIMAGE(@"bundle://Three20.bundle/images/nextIcon.png"),
-	  nil]];
+      TTIMAGE(@"bundle://Three20.bundle/images/nextIcon.png"),
+      nil]];
   _segmentedControl.frame = CGRectMake(0, 0, 90, 30);
   _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
   _segmentedControl.momentary = YES;
   [_segmentedControl addTarget:self action:@selector(segmentAction:) 
     forControlEvents:UIControlEventValueChanged];
-
+  
   UIBarButtonItem *segmentBarButttonItem =
 	[[UIBarButtonItem alloc] initWithCustomView:_segmentedControl];
 	
   self.navigationItem.rightBarButtonItem = segmentBarButttonItem;	
   [segmentBarButttonItem release];
+  
+
 }
 
 
@@ -491,6 +501,7 @@ static const NSInteger kActivityLabelTag          = 96;
   TT_RELEASE_SAFELY(_innerView);
   TT_RELEASE_SAFELY(_scrollView);
   TT_RELEASE_SAFELY(_faceView);
+  TT_RELEASE_SAFELY(_progressView);
   TT_RELEASE_SAFELY(_segmentedControl);
   TT_RELEASE_SAFELY(_photoStatusView);
 }

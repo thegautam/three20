@@ -42,6 +42,8 @@
   UIToolbar*        _toolbar;
   UIBarButtonItem*  _nextButton;
   UIBarButtonItem*  _previousButton;
+	
+  UIImageView*      _progressView;
 
   TTStyle*          _captionStyle;
 

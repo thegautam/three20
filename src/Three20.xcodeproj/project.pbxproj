@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5665BA74118EBE8C00470497 /* FaceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5665BA72118EBE8C00470497 /* FaceView.h */; };
 		5665BA75118EBE8C00470497 /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5665BA73118EBE8C00470497 /* FaceView.m */; };
+		5670FA3911A04F2F00CC653F /* ProgressStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5670FA3711A04F2F00CC653F /* ProgressStarView.m */; };
+		5670FA3A11A04F2F00CC653F /* ProgressStarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5670FA3811A04F2F00CC653F /* ProgressStarView.h */; };
 		6E14D7E810E09A2300445222 /* TTURLDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E14D7E610E09A2300445222 /* TTURLDataResponse.m */; };
 		6E14D81410E0A12700445222 /* TTURLImageResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E14D81210E0A12700445222 /* TTURLImageResponse.m */; };
 		6E14D82A10E0A16700445222 /* TTURLImageResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E14D82810E0A16700445222 /* TTURLImageResponse.h */; };
@@ -537,6 +539,8 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		5665BA72118EBE8C00470497 /* FaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceView.h; sourceTree = "<group>"; };
 		5665BA73118EBE8C00470497 /* FaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceView.m; sourceTree = "<group>"; };
+		5670FA3711A04F2F00CC653F /* ProgressStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressStarView.m; sourceTree = "<group>"; };
+		5670FA3811A04F2F00CC653F /* ProgressStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressStarView.h; sourceTree = "<group>"; };
 		6E14D7E610E09A2300445222 /* TTURLDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTURLDataResponse.m; sourceTree = "<group>"; };
 		6E14D81210E0A12700445222 /* TTURLImageResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTURLImageResponse.m; sourceTree = "<group>"; };
 		6E14D82810E0A16700445222 /* TTURLImageResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTURLImageResponse.h; path = Three20/TTURLImageResponse.h; sourceTree = "<group>"; };
@@ -1890,6 +1894,8 @@
 		BEF31F450F352E64000DE5D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5670FA3711A04F2F00CC653F /* ProgressStarView.m */,
+				5670FA3811A04F2F00CC653F /* ProgressStarView.h */,
 				5665BA72118EBE8C00470497 /* FaceView.h */,
 				5665BA73118EBE8C00470497 /* FaceView.m */,
 				BEF31F5F0F352E64000DE5D2 /* TTView.h */,
@@ -2339,6 +2345,7 @@
 				6E5F22C511813D23004BEBA9 /* SBJsonWriter.h in Headers */,
 				6E5F22D311814CF2004BEBA9 /* TTURLJSONResponse.h in Headers */,
 				5665BA74118EBE8C00470497 /* FaceView.h in Headers */,
+				5670FA3A11A04F2F00CC653F /* ProgressStarView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2650,6 +2657,7 @@
 				6E5F22C611813D23004BEBA9 /* SBJsonWriter.m in Sources */,
 				6E5F22D111814CE6004BEBA9 /* TTURLJSONResponse.m in Sources */,
 				5665BA75118EBE8C00470497 /* FaceView.m in Sources */,
+				5670FA3911A04F2F00CC653F /* ProgressStarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

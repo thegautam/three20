@@ -30,7 +30,6 @@
 #import "Three20/UIViewControllerAdditions.h"
 #import "Three20/UINavigationControllerAdditions.h"
 #import "Three20/UIToolbarAdditions.h"
-#import "Three20/FaceView.h"
 
 // Style
 #import "Three20/TTGlobalStyle.h"
@@ -195,6 +194,8 @@ static const NSInteger kActivityLabelTag          = 96;
   [_segmentedControl setEnabled:_centerPhotoIndex > 0 forSegmentAtIndex:0];
   [_segmentedControl setEnabled:_centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1
     forSegmentAtIndex:1];	
+  
+  [_progressStarView setNeedsDisplay];
 }
 
 
@@ -450,6 +451,8 @@ static const NSInteger kActivityLabelTag          = 96;
 
   CGRect innerFrame = CGRectMake(0, 0,
                                  screenFrame.size.width, screenFrame.size.height);
+  CGRect progressFrame = CGRectMake(0, screenFrame.size.height - 16, 
+                                    screenFrame.size.width, 16);
   _innerView = [[UIView alloc] initWithFrame:innerFrame];
   _innerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [self.view addSubview:_innerView];
@@ -459,11 +462,13 @@ static const NSInteger kActivityLabelTag          = 96;
   
   _progressView = [[UIImageView alloc] initWithImage:
                    TTIMAGE(@"bundle://Three20.bundle/images/wood.png")];
-  CGPoint l;
-  l.x = _innerView.center.x;
-  l.y = _innerView.height - (_progressView.height / 2);
-  _progressView.center = l;
+
+  _progressView.frame = progressFrame;
   [_innerView addSubview:_progressView];
+  
+  _progressStarView = [[ProgressStarView alloc] initWithFrame:progressFrame];
+  _progressStarView.delegate = self;
+  [_innerView addSubview:_progressStarView];
 
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
@@ -502,6 +507,7 @@ static const NSInteger kActivityLabelTag          = 96;
   TT_RELEASE_SAFELY(_scrollView);
   TT_RELEASE_SAFELY(_faceView);
   TT_RELEASE_SAFELY(_progressView);
+  TT_RELEASE_SAFELY(_progressStarView);
   TT_RELEASE_SAFELY(_segmentedControl);
   TT_RELEASE_SAFELY(_photoStatusView);
 }
@@ -844,6 +850,23 @@ static const NSInteger kActivityLabelTag          = 96;
 - (BOOL)thumbsViewController:(TTThumbsViewController*)controller
        shouldNavigateToPhoto:(id<TTPhoto>)photo {
   return NO;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark ProgressStarViewDelegate
+
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+- (int)totalCount {
+  return _photoSource.numberOfPhotos;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (int)progressCount {
+  return _centerPhotoIndex + 1;
 }
 
 

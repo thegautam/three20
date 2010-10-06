@@ -219,7 +219,9 @@ static const NSInteger kActivityLabelTag          = 96;
 
   [_segmentedControl setEnabled:_centerPhotoIndex > 0 forSegmentAtIndex:0];
   [_segmentedControl setEnabled:_centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1
-    forSegmentAtIndex:1];	
+    forSegmentAtIndex:1];
+ 
+  [_progressStarView setNeedsDisplay];
 }
 
 
@@ -488,20 +490,23 @@ static const NSInteger kActivityLabelTag          = 96;
   _faceView = [[FaceView alloc] initWithFrame:screenFrame];
   [_innerView addSubview:_faceView];
   
+  CGRect progressFrame = CGRectMake(0, screenFrame.size.height - 16, screenFrame.size.width, 16);
   _progressView = [[UIImageView alloc] initWithImage:
                    TTIMAGE(@"bundle://Three20.bundle/images/wood.png")];
-  CGPoint l;
-  l.x = _innerView.center.x;
-  l.y = _innerView.height - (_progressView.height / 2);
-  _progressView.center = l;
+  _progressView.frame = progressFrame;
   [_innerView addSubview:_progressView];
+  _progressStarView = [[ProgressStarView alloc] initWithFrame:progressFrame];
+  _progressStarView.delegate = self;
+  [_innerView addSubview:_progressStarView];
+    
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
   _scrollView.dataSource = self;
   _scrollView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
   _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [_innerView addSubview:_scrollView];
- _segmentedControl = [[UISegmentedControl alloc] initWithItems:
+ 
+  _segmentedControl = [[UISegmentedControl alloc] initWithItems:
     [NSArray arrayWithObjects:
       TTIMAGE(@"bundle://Three20.bundle/images/previousIcon.png"),
       TTIMAGE(@"bundle://Three20.bundle/images/nextIcon.png"),
@@ -952,5 +957,21 @@ static const NSInteger kActivityLabelTag          = 96;
   }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark ProgressStarViewDelegate
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (int)totalCount {
+    return _photoSource.numberOfPhotos;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (int)progressCount {
+    return _centerPhotoIndex + 1;
+}
 
 @end

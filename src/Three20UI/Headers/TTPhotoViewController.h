@@ -19,7 +19,8 @@
 #import "Three20UI/TTScrollViewDelegate.h"
 #import "Three20UI/TTScrollViewDataSource.h"
 #import "Three20UI/TTThumbsViewControllerDelegate.h"
-
+#import "Three20UI/FaceView.h"
+#import "Three20UI/ProgressStarView.h"
 @protocol TTPhotoSource;
 @class TTScrollView;
 @class TTPhotoView;
@@ -28,7 +29,8 @@
 @interface TTPhotoViewController : TTModelViewController <
   TTScrollViewDelegate,
   TTScrollViewDataSource,
-  TTThumbsViewControllerDelegate
+  TTThumbsViewControllerDelegate,
+  ProgressStarViewDelegate
 > {
   id<TTPhoto>       _centerPhoto;
   NSInteger         _centerPhotoIndex;
@@ -36,10 +38,14 @@
   UIView*           _innerView;
   TTScrollView*     _scrollView;
   TTPhotoView*      _photoStatusView;
+  FaceView*         _faceView;
 
   UIToolbar*        _toolbar;
   UIBarButtonItem*  _nextButton;
   UIBarButtonItem*  _previousButton;
+	
+  UIImageView*      _progressView;
+  ProgressStarView* _progressStarView;
 
   TTStyle*          _captionStyle;
 
@@ -54,6 +60,8 @@
 
   TTThumbsViewController* _thumbsController;
 
+  UISegmentedControl*     _segmentedControl;	
+	
   id<TTPhotoSource> _photoSource;
 }
 
@@ -86,6 +94,9 @@
  * The style to use for the caption label.
  */
 @property (nonatomic, retain) TTStyle* captionStyle;
+
+@property (readonly) int totalCount;
+@property (readonly) int progressCount;
 
 - (id)initWithPhoto:(id<TTPhoto>)photo;
 - (id)initWithPhotoSource:(id<TTPhotoSource>)photoSource;

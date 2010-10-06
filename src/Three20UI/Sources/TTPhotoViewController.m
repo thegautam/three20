@@ -205,20 +205,17 @@ static const NSInteger kActivityLabelTag          = 96;
 
   if (![self.ttPreviousViewController isKindOfClass:[TTThumbsViewController class]]) {
     if (_photoSource.numberOfPhotos > 1) {
-      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-                                                initWithTitle:TTLocalizedString(@"See All", @"See all photo thumbnails")
-                                                style:UIBarButtonItemStyleBordered target:self action:@selector(showThumbnails)];
+        UIBarButtonItem *segmentBarButtonItem =
+        [[UIBarButtonItem alloc] initWithCustomView:_segmentedControl];
+        
+        self.navigationItem.rightBarButtonItem = segmentBarButtonItem;	
+        [segmentBarButtonItem release];
     } else {
       self.navigationItem.rightBarButtonItem = nil;
     }
   } else {
     self.navigationItem.rightBarButtonItem = nil;
   }
-
-  UIBarButtonItem* playButton = [_toolbar itemWithTag:1];
-  playButton.enabled = _photoSource.numberOfPhotos > 1;
-  _previousButton.enabled = _centerPhotoIndex > 0;
-  _nextButton.enabled = _centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1;
 
   [_segmentedControl setEnabled:_centerPhotoIndex > 0 forSegmentAtIndex:0];
   [_segmentedControl setEnabled:_centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1
@@ -514,12 +511,6 @@ static const NSInteger kActivityLabelTag          = 96;
   _segmentedControl.momentary = YES;
   [_segmentedControl addTarget:self action:@selector(segmentAction:) 
     forControlEvents:UIControlEventValueChanged];
-  
-  UIBarButtonItem *segmentBarButtonItem =
-	[[UIBarButtonItem alloc] initWithCustomView:_segmentedControl];
-	
-  self.navigationItem.rightBarButtonItem = segmentBarButtonItem;	
-  [segmentBarButtonItem release];
 }
 
 

@@ -28,6 +28,7 @@
 #import "Three20UI/UIViewAdditions.h"
 #import "Three20UI/UINavigationControllerAdditions.h"
 #import "Three20UI/UIToolbarAdditions.h"
+#import "Three20UI/FaceView.h"
 
 // UINavigator
 #import "Three20UINavigator/TTURLObject.h"
@@ -218,6 +219,10 @@ static const NSInteger kActivityLabelTag          = 96;
   playButton.enabled = _photoSource.numberOfPhotos > 1;
   _previousButton.enabled = _centerPhotoIndex > 0;
   _nextButton.enabled = _centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1;
+
+  [_segmentedControl setEnabled:_centerPhotoIndex > 0 forSegmentAtIndex:0];
+  [_segmentedControl setEnabled:_centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1
+    forSegmentAtIndex:1];	
 }
 
 
@@ -443,6 +448,16 @@ static const NSInteger kActivityLabelTag          = 96;
   }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)segmentAction:(id)sender {
+  UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+  if (segmentedControl.selectedSegmentIndex == 0) {
+    [self previousAction];
+  }
+  else if (segmentedControl.selectedSegmentIndex == 1) {	  
+    [self nextAction];
+  }
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)showBarsAnimationDidStop {
@@ -473,39 +488,40 @@ static const NSInteger kActivityLabelTag          = 96;
   _innerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [self.view addSubview:_innerView];
 
+  _faceView = [[FaceView alloc] initWithFrame:screenFrame];
+  [_innerView addSubview:_faceView];
+  
+  _progressView = [[UIImageView alloc] initWithImage:
+                   TTIMAGE(@"bundle://Three20.bundle/images/wood.png")];
+  CGPoint l;
+  l.x = _innerView.center.x;
+  l.y = _innerView.height - (_progressView.height / 2);
+  _progressView.center = l;
+  [_innerView addSubview:_progressView];
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
   _scrollView.dataSource = self;
-  _scrollView.backgroundColor = [UIColor blackColor];
+  _scrollView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
   _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [_innerView addSubview:_scrollView];
+ _segmentedControl = [[UISegmentedControl alloc] initWithItems:
+    [NSArray arrayWithObjects:
+      TTIMAGE(@"bundle://Three20.bundle/images/previousIcon.png"),
+      TTIMAGE(@"bundle://Three20.bundle/images/nextIcon.png"),
+      nil]];
+  _segmentedControl.frame = CGRectMake(0, 0, 90, 30);
+  _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+  _segmentedControl.momentary = YES;
+  [_segmentedControl addTarget:self action:@selector(segmentAction:) 
+    forControlEvents:UIControlEventValueChanged];
+  
+  UIBarButtonItem *segmentBarButttonItem =
+	[[UIBarButtonItem alloc] initWithCustomView:_segmentedControl];
+	
+  self.navigationItem.rightBarButtonItem = segmentBarButttonItem;	
+  [segmentBarButttonItem release];
+  
 
-  _nextButton = [[UIBarButtonItem alloc] initWithImage:
-                 TTIMAGE(@"bundle://Three20.bundle/images/nextIcon.png")
-                                                 style:UIBarButtonItemStylePlain target:self action:@selector(nextAction)];
-  _previousButton = [[UIBarButtonItem alloc] initWithImage:
-                     TTIMAGE(@"bundle://Three20.bundle/images/previousIcon.png")
-                                                     style:UIBarButtonItemStylePlain target:self action:@selector(previousAction)];
-
-  UIBarButtonItem* playButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:
-                                  UIBarButtonSystemItemPlay target:self action:@selector(playAction)] autorelease];
-  playButton.tag = 1;
-
-  UIBarItem* space = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:
-                       UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
-
-  _toolbar = [[UIToolbar alloc] initWithFrame:
-              CGRectMake(0, screenFrame.size.height - TT_ROW_HEIGHT,
-                         screenFrame.size.width, TT_ROW_HEIGHT)];
-  if (self.navigationBarStyle == UIBarStyleDefault) {
-    _toolbar.tintColor = TTSTYLEVAR(toolbarTintColor);
-  }
-
-  _toolbar.barStyle = self.navigationBarStyle;
-  _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-  _toolbar.items = [NSArray arrayWithObjects:
-                    space, _previousButton, space, _nextButton, space, nil];
-  [_innerView addSubview:_toolbar];
 }
 
 
@@ -516,10 +532,10 @@ static const NSInteger kActivityLabelTag          = 96;
   _scrollView.dataSource = nil;
   TT_RELEASE_SAFELY(_innerView);
   TT_RELEASE_SAFELY(_scrollView);
+  TT_RELEASE_SAFELY(_faceView);
+  TT_RELEASE_SAFELY(_progressView);
+  TT_RELEASE_SAFELY(_segmentedControl);
   TT_RELEASE_SAFELY(_photoStatusView);
-  TT_RELEASE_SAFELY(_nextButton);
-  TT_RELEASE_SAFELY(_previousButton);
-  TT_RELEASE_SAFELY(_toolbar);
 }
 
 

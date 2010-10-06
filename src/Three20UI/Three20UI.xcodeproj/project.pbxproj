@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56699407125C29BD00359742 /* ProgressStarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 56699406125C29BD00359742 /* ProgressStarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56699409125C29D000359742 /* ProgressStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56699408125C29D000359742 /* ProgressStarView.m */; };
+		5669940B125C29DE00359742 /* FaceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5669940A125C29DE00359742 /* FaceView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5669940D125C29EC00359742 /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5669940C125C29EC00359742 /* FaceView.m */; };
 		6E60820111B0C31400C93CD4 /* TTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6081FF11B0C31400C93CD4 /* TTNavigationController.m */; };
 		6E60820311B0C32600C93CD4 /* TTNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E60820211B0C32600C93CD4 /* TTNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E6454741184D2CD00F08CB1 /* Three20UI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E6454731184D2CD00F08CB1 /* Three20UI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -423,6 +427,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56699406125C29BD00359742 /* ProgressStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressStarView.h; path = Headers/ProgressStarView.h; sourceTree = "<group>"; };
+		56699408125C29D000359742 /* ProgressStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressStarView.m; path = Sources/ProgressStarView.m; sourceTree = "<group>"; };
+		5669940A125C29DE00359742 /* FaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaceView.h; path = Headers/FaceView.h; sourceTree = "<group>"; };
+		5669940C125C29EC00359742 /* FaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaceView.m; path = Sources/FaceView.m; sourceTree = "<group>"; };
 		6E6081FF11B0C31400C93CD4 /* TTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTNavigationController.m; path = Sources/TTNavigationController.m; sourceTree = "<group>"; };
 		6E60820211B0C32600C93CD4 /* TTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNavigationController.h; path = Headers/TTNavigationController.h; sourceTree = "<group>"; };
 		6E64543D1184BE1B00F08CB1 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project.xcconfig; path = Configurations/Project.xcconfig; sourceTree = "<group>"; };
@@ -742,6 +750,24 @@
 			name = CustomTemplate;
 			sourceTree = "<group>";
 		};
+		56699402125C299B00359742 /* FaceView */ = {
+			isa = PBXGroup;
+			children = (
+				5669940C125C29EC00359742 /* FaceView.m */,
+				5669940A125C29DE00359742 /* FaceView.h */,
+			);
+			name = FaceView;
+			sourceTree = "<group>";
+		};
+		56699405125C29A400359742 /* StarProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				56699408125C29D000359742 /* ProgressStarView.m */,
+				56699406125C29BD00359742 /* ProgressStarView.h */,
+			);
+			name = StarProgressView;
+			sourceTree = "<group>";
+		};
 		6E08B274118282F700DA1579 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -948,6 +974,8 @@
 		6E6457AE1184D91100F08CB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				56699405125C29A400359742 /* StarProgressView */,
+				56699402125C299B00359742 /* FaceView */,
 				6E64554F1184D4C500F08CB1 /* TTView.h */,
 				6E6456781184D4DA00F08CB1 /* TTView.m */,
 				6E6457B01184D95300F08CB1 /* Image View */,
@@ -1816,6 +1844,8 @@
 				6E86A8DB118CBF7500662DA5 /* TTNavigatorWindow.h in Headers */,
 				6E60820311B0C32600C93CD4 /* TTNavigationController.h in Headers */,
 				6ECCA60011C0C105002296C7 /* TTLauncherHighlightView.h in Headers */,
+				56699407125C29BD00359742 /* ProgressStarView.h in Headers */,
+				5669940B125C29DE00359742 /* FaceView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1877,6 +1907,9 @@
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Three20UI" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectReferences = (
@@ -2145,6 +2178,8 @@
 				6E86A8EC118CBF8E00662DA5 /* TTNavigatorWindow.m in Sources */,
 				6E60820111B0C31400C93CD4 /* TTNavigationController.m in Sources */,
 				6ECCA5FE11C0C0F6002296C7 /* TTLauncherHighlightView.m in Sources */,
+				56699409125C29D000359742 /* ProgressStarView.m in Sources */,
+				5669940D125C29EC00359742 /* FaceView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

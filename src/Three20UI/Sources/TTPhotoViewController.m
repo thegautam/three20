@@ -515,13 +515,11 @@ static const NSInteger kActivityLabelTag          = 96;
   [_segmentedControl addTarget:self action:@selector(segmentAction:) 
     forControlEvents:UIControlEventValueChanged];
   
-  UIBarButtonItem *segmentBarButttonItem =
+  UIBarButtonItem *segmentBarButtonItem =
 	[[UIBarButtonItem alloc] initWithCustomView:_segmentedControl];
 	
-  self.navigationItem.rightBarButtonItem = segmentBarButttonItem;	
-  [segmentBarButttonItem release];
-  
-
+  self.navigationItem.rightBarButtonItem = segmentBarButtonItem;	
+  [segmentBarButtonItem release];
 }
 
 

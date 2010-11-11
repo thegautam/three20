@@ -18,6 +18,7 @@
   id<ProgressStarViewDelegate> delegate;
 }
 
+
 @property (assign) id<ProgressStarViewDelegate> delegate; 
 
 @end

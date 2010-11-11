@@ -21,6 +21,7 @@
 #import "Three20UI/TTThumbsViewControllerDelegate.h"
 #import "Three20UI/FaceView.h"
 #import "Three20UI/ProgressStarView.h"
+//#import "Three20UI/ProgressSmallStarView.h"
 @protocol TTPhotoSource;
 @class TTScrollView;
 @class TTPhotoView;
@@ -46,6 +47,7 @@
 	
   UIImageView*      _progressView;
   ProgressStarView* _progressStarView;
+  ProgressStarView* _progressSmallStarView;
 
   TTStyle*          _captionStyle;
 

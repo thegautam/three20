@@ -13,7 +13,7 @@
 
 @synthesize delegate;
 
-- (void)drawStarAtCenter:(CGPoint)center withRadius:(float)r asGhost:(BOOL)ghost {
+- (void)drawStarAtCenter:(CGPoint)center withRadius:(float)r asGhost:(BOOL)ghost red:(float)red green:(float)green blue:(float)blue {
   
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextBeginPath(context);
@@ -34,11 +34,13 @@
     CGContextDrawPath(context, kCGPathStroke); 
   }
   else {
-    [[UIColor colorWithRed:1 green:215.0/255 blue:0 alpha:1] setFill];
+    [[UIColor colorWithRed:red green:green/255 blue:blue alpha:1] setFill];
+      
     [[UIColor colorWithRed:215.0/255 green:175.0/255 blue:55.0/255 alpha:1] 
       setStroke];
     CGContextDrawPath(context, kCGPathFillStroke); 
   }
+    
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -55,13 +57,36 @@
   float x = rect.size.width / max;
   float y = rect.size.height / 2;
   float r = (x/2 < y) ? x/2 : y;
-  r = r - 1.5;
+    r = r - 1.5;    
+
   for (float i = 0.5; i < max; i++) {
-    if (i < delegate.progressCount) {
-      [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:NO];
+    if (i < delegate.progressCount && i>delegate.progressCount-1) {
+        
+        if(rect.size.height==32){
+                        float red=0;
+            float green=255;
+            float blue=0;
+            [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:2.5*r asGhost:NO red:red green:green blue:blue];
+            
+        }   
+        
+        
+        
     }
-    else {
-      [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:YES];
+    else if (i < delegate.progressCount && !(rect.size.height==32) ) {
+        
+        float red=1;
+        float green=215.0;
+        float blue=0;
+        [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:NO red:red green:green blue:blue];
+    }
+    else if(!(rect.size.height==32)) {
+        
+        
+        float red=1;
+        float green=215.0;
+        float blue=0;
+        [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:YES red:red green:green blue:blue];    
     }
   }
 }

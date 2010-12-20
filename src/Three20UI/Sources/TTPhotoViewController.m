@@ -225,18 +225,14 @@ static const NSInteger kActivityLabelTag          = 96;
   [_segmentedControl setEnabled:_centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1
     forSegmentAtIndex:1];    
   [_progressSmallStarView setNeedsDisplay];
-  [_progressStarView setNeedsDisplay];
-    /* changes made by Abhishek
-     */         
-    [CATransaction begin];
-    CATransition *animation = [CATransition animation];
-    animation.type = kCATransitionReveal;
-    animation.duration = 1.00;    
-    [[_progressStarView layer] addAnimation:animation forKey:kCATransition];
-    [CATransaction commit];
-    /*changes finish
-     */
-
+  [_progressStarView setNeedsDisplay];        
+    CATransition *transition = [CATransition animation];
+    transition.duration = 2;    
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];      
+    transition.type = kCATransitionFade;       
+    //transition.delegate = self;    
+    [_innerView.layer addAnimation:transition forKey:nil];
+    
 }
 
 
@@ -254,8 +250,9 @@ static const NSInteger kActivityLabelTag          = 96;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)updatePhotoView {
   _scrollView.centerPageIndex = _centerPhotoIndex;
-  [self loadImages];
-  [self updateChrome];
+  [self loadImages];    
+    [self updateChrome];
+    
 }
 
 
@@ -505,8 +502,8 @@ static const NSInteger kActivityLabelTag          = 96;
   _faceView = [[FaceView alloc] initWithFrame:screenFrame];
   [_innerView addSubview:_faceView];
   
-  CGRect progressStarViewFrame = CGRectMake(0, screenFrame.size.height - 32, screenFrame.size.width, 32);
-  CGRect progressViewFrame = CGRectMake(0, screenFrame.size.height - 24, screenFrame.size.width, 16);
+  CGRect progressStarViewFrame = CGRectMake(0, screenFrame.size.height - 64, screenFrame.size.width, 64);
+  CGRect progressViewFrame = CGRectMake(0, screenFrame.size.height - 32, screenFrame.size.width, 16);
 
   _progressView = [[UIImageView alloc] initWithImage:
                    TTIMAGE(@"bundle://Three20.bundle/images/wood.png")];
@@ -518,16 +515,10 @@ static const NSInteger kActivityLabelTag          = 96;
     /*
      changes made by Abhishek
      */
-    CGRect progressSmallStarViewFrame = CGRectMake(0, screenFrame.size.height - 24, screenFrame.size.width, 16);
+    CGRect progressSmallStarViewFrame = CGRectMake(0, screenFrame.size.height - 24, screenFrame.size.width, 16);    
     _progressSmallStarView = [[ProgressStarView alloc] initWithFrame:progressSmallStarViewFrame];
     _progressSmallStarView.delegate = self;
-    [_innerView addSubview:_progressSmallStarView];    
-    
-    /*
-     changes finish
-     */
-    
-  _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
+    _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
   _scrollView.dataSource = self;
   _scrollView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
@@ -1008,5 +999,7 @@ static const NSInteger kActivityLabelTag          = 96;
 - (int)progressCount {
     return _centerPhotoIndex + 1;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 @end

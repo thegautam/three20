@@ -8,6 +8,12 @@
 
 #import "ProgressStarView.h"
 
+// Private methods.
+@interface ProgressStarView()
+
+- (void)drawStarAtCenter:(CGPoint)center withRadius:(float)r asGhost:(BOOL)ghost;
+
+@end
 
 @implementation ProgressStarView
 

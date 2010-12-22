@@ -51,9 +51,6 @@
 #import "Three20Core/TTCorePreprocessorMacros.h"
 #import "Three20Core/TTGlobalCoreLocale.h"
 
-//animation
-//#import "ViewTransitionsAppDelegate.h"
-#import <QuartzCore/QuartzCore.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -114,7 +111,7 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithPhotoSource:(id<TTPhotoSource>)photoSource {
   if (self = [self initWithNibName:nil bundle:nil]) {
-    self.photoSource = photoSource;      
+    self.photoSource = photoSource;
   }
 
   return self;
@@ -226,20 +223,9 @@ AVAudioPlayer *player;
 
   [_segmentedControl setEnabled:_centerPhotoIndex > 0 forSegmentAtIndex:0];
   [_segmentedControl setEnabled:_centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1
-    forSegmentAtIndex:1];    
-  [_progressSmallStarView setNeedsDisplay];
+    forSegmentAtIndex:1];
+ 
   [_progressStarView setNeedsDisplay];
-    /* changes made by Abhishek
-     */         
-    [CATransaction begin];
-    CATransition *animation = [CATransition animation];
-    animation.type = kCATransitionReveal;
-    animation.duration = 1.00;    
-    [[_progressStarView layer] addAnimation:animation forKey:kCATransition];
-    [CATransaction commit];
-    /*changes finish
-     */
-
 }
 
 
@@ -274,7 +260,7 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)moveToPhotoAtIndex:(NSInteger)photoIndex withDelay:(BOOL)withDelay {
-  _centerPhotoIndex = photoIndex == TT_NULL_PHOTO_INDEX ? 0 : photoIndex;   
+  _centerPhotoIndex = photoIndex == TT_NULL_PHOTO_INDEX ? 0 : photoIndex;
   [self moveToPhoto:[_photoSource photoAtIndex:_centerPhotoIndex]];
   _delayLoad = withDelay;    
 
@@ -417,7 +403,7 @@ AVAudioPlayer *player;
   if (_centerPhotoIndex == _photoSource.numberOfPhotos-1) {
     _scrollView.centerPageIndex = 0;
   } else {
-    _scrollView.centerPageIndex = _centerPhotoIndex+1;      
+    _scrollView.centerPageIndex = _centerPhotoIndex+1;
   }
 }
 
@@ -513,27 +499,14 @@ AVAudioPlayer *player;
   _faceView = [[FaceView alloc] initWithFrame:screenFrame];
   [_innerView addSubview:_faceView];
   
-  CGRect progressStarViewFrame = CGRectMake(0, screenFrame.size.height - 32, screenFrame.size.width, 32);
-  CGRect progressViewFrame = CGRectMake(0, screenFrame.size.height - 24, screenFrame.size.width, 16);
-
+  CGRect progressFrame = CGRectMake(0, screenFrame.size.height - 16, screenFrame.size.width, 16);
   _progressView = [[UIImageView alloc] initWithImage:
                    TTIMAGE(@"bundle://Three20.bundle/images/wood.png")];
-  _progressView.frame = progressViewFrame;
+  _progressView.frame = progressFrame;
   [_innerView addSubview:_progressView];
-  _progressStarView = [[ProgressStarView alloc] initWithFrame:progressStarViewFrame];
+  _progressStarView = [[ProgressStarView alloc] initWithFrame:progressFrame];
   _progressStarView.delegate = self;
   [_innerView addSubview:_progressStarView];
-    /*
-     changes made by Abhishek
-     */
-    CGRect progressSmallStarViewFrame = CGRectMake(0, screenFrame.size.height - 24, screenFrame.size.width, 16);
-    _progressSmallStarView = [[ProgressStarView alloc] initWithFrame:progressSmallStarViewFrame];
-    _progressSmallStarView.delegate = self;
-    [_innerView addSubview:_progressSmallStarView];    
-    
-    /*
-     changes finish
-     */
     
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
@@ -541,8 +514,7 @@ AVAudioPlayer *player;
   _scrollView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
   _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [_innerView addSubview:_scrollView];
-    
-     
+ 
   _segmentedControl = [[UISegmentedControl alloc] initWithItems:
     [NSArray arrayWithObjects:
       TTIMAGE(@"bundle://Three20.bundle/images/previousIcon.png"),
@@ -553,7 +525,6 @@ AVAudioPlayer *player;
   _segmentedControl.momentary = YES;
   [_segmentedControl addTarget:self action:@selector(segmentAction:) 
     forControlEvents:UIControlEventValueChanged];
-    
 }
 
 
@@ -575,7 +546,6 @@ AVAudioPlayer *player;
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   [self updateToolbarWithOrientation:self.interfaceOrientation];
-    
 }
 
 
@@ -680,7 +650,6 @@ AVAudioPlayer *player;
 - (void)didRefreshModel {
   [super didRefreshModel];
   [self updatePhotoView];
-    
 }
 
 
@@ -725,8 +694,7 @@ AVAudioPlayer *player;
   if (_centerPhotoIndex >= _photoSource.numberOfPhotos) {
     // We were positioned at an index that is past the end, so move to the last photo
     [self moveToPhotoAtIndex:_photoSource.numberOfPhotos - 1 withDelay:NO];
-  } 
-  else {
+  } else {
     [self moveToPhotoAtIndex:_centerPhotoIndex withDelay:NO];
   }
     
@@ -803,7 +771,7 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)scrollView:(TTScrollView*)scrollView didMoveToPageAtIndex:(NSInteger)pageIndex {
   if (pageIndex != _centerPhotoIndex) {
-    [self moveToPhotoAtIndex:pageIndex withDelay:YES];      
+    [self moveToPhotoAtIndex:pageIndex withDelay:YES];
     [self refresh];
   }
 }
@@ -820,7 +788,6 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)scrollViewDidEndDecelerating:(TTScrollView*)scrollView {
   [self startImageLoadTimer:kPhotoLoadShortDelay];
-    
 }
 
 
@@ -938,11 +905,11 @@ AVAudioPlayer *player;
 - (void)setPhotoSource:(id<TTPhotoSource>)photoSource {
   if (_photoSource != photoSource) {
     [_photoSource release];
-    _photoSource = [photoSource retain];      
+    _photoSource = [photoSource retain];
+
     [self moveToPhotoAtIndex:0 withDelay:NO];
     self.model = _photoSource;
-   }
-        
+  }
 }
 
 
@@ -1005,7 +972,6 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark ProgressStarViewDelegate
-#pragma mark ProgressSmallStarViewDelegate
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

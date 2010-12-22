@@ -23,7 +23,7 @@
 #import "Three20UI/ProgressStarView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-//#import "Three20UI/ProgressSmallStarView.h"
+
 @protocol TTPhotoSource;
 @class TTScrollView;
 @class TTPhotoView;
@@ -49,7 +49,6 @@
 	
   UIImageView*      _progressView;
   ProgressStarView* _progressStarView;
-  ProgressStarView* _progressSmallStarView;
 
   TTStyle*          _captionStyle;
 

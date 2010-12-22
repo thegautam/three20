@@ -60,7 +60,7 @@
   NSTimer*          _slideshowTimer;
   NSTimer*          _loadTimer;
 
-  BOOL              _delayLoad;  
+  BOOL              _delayLoad;
 
   TTThumbsViewController* _thumbsController;
 

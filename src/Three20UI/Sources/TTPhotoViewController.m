@@ -228,14 +228,18 @@ AVAudioPlayer *player;
   [_segmentedControl setEnabled:_centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1
     forSegmentAtIndex:1];    
   [_progressSmallStarView setNeedsDisplay];
-  [_progressStarView setNeedsDisplay];        
-    CATransition *transition = [CATransition animation];
-    transition.duration = 2;    
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];      
-    transition.type = kCATransitionFade;       
-    //transition.delegate = self;    
-    [_innerView.layer addAnimation:transition forKey:nil];
-    
+  [_progressStarView setNeedsDisplay];
+    /* changes made by Abhishek
+     */         
+    [CATransaction begin];
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionReveal;
+    animation.duration = 1.00;    
+    [[_progressStarView layer] addAnimation:animation forKey:kCATransition];
+    [CATransaction commit];
+    /*changes finish
+     */
+
 }
 
 
@@ -509,8 +513,8 @@ AVAudioPlayer *player;
   _faceView = [[FaceView alloc] initWithFrame:screenFrame];
   [_innerView addSubview:_faceView];
   
-  CGRect progressStarViewFrame = CGRectMake(0, screenFrame.size.height - 64, screenFrame.size.width, 64);
-  CGRect progressViewFrame = CGRectMake(0, screenFrame.size.height - 32, screenFrame.size.width, 16);
+  CGRect progressStarViewFrame = CGRectMake(0, screenFrame.size.height - 32, screenFrame.size.width, 32);
+  CGRect progressViewFrame = CGRectMake(0, screenFrame.size.height - 24, screenFrame.size.width, 16);
 
   _progressView = [[UIImageView alloc] initWithImage:
                    TTIMAGE(@"bundle://Three20.bundle/images/wood.png")];
@@ -522,10 +526,16 @@ AVAudioPlayer *player;
     /*
      changes made by Abhishek
      */
-    CGRect progressSmallStarViewFrame = CGRectMake(0, screenFrame.size.height - 24, screenFrame.size.width, 16);    
+    CGRect progressSmallStarViewFrame = CGRectMake(0, screenFrame.size.height - 24, screenFrame.size.width, 16);
     _progressSmallStarView = [[ProgressStarView alloc] initWithFrame:progressSmallStarViewFrame];
     _progressSmallStarView.delegate = self;
-    _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
+    [_innerView addSubview:_progressSmallStarView];    
+    
+    /*
+     changes finish
+     */
+    
+  _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
   _scrollView.dataSource = self;
   _scrollView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];

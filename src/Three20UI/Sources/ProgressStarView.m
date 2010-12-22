@@ -13,7 +13,7 @@
 
 @synthesize delegate;
 
-- (void)drawStarAtCenter:(CGPoint)center withRadius:(float)r asGhost:(BOOL)ghost red:(float)red green:(float)green blue:(float)blue withVisibilty:(BOOL)isVisible{
+- (void)drawStarAtCenter:(CGPoint)center withRadius:(float)r asGhost:(BOOL)ghost red:(float)red green:(float)green blue:(float)blue {
   
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextBeginPath(context);
@@ -30,33 +30,15 @@
 	}
 
   if (ghost) {
-      [[UIColor colorWithRed:0 green:1 blue:0 alpha:0.1] setFill]; 
-      [[UIColor colorWithRed:0 green:1 blue:0 alpha:0.1] 
-      setStroke];
-      CGContextDrawPath(context, kCGPathFillStroke); 
-
+    [[UIColor darkGrayColor] setStroke];
+    CGContextDrawPath(context, kCGPathStroke); 
   }
-  else{
-      if(isVisible){
-          [[UIColor colorWithRed:red green:green/255 blue:blue alpha:1] setFill];
-          if(green==255){
-              [[UIColor colorWithRed:red green:green/255 blue:blue/255 alpha:1] 
-               setStroke];
-          }
-          else{
-              [[UIColor colorWithRed:215.0/255 green:175.0/255 blue:55.0/255 alpha:1] 
-               setStroke];
-          }
-          
-          CGContextDrawPath(context, kCGPathFillStroke);
-      }
-      else{
-          [[UIColor colorWithRed:red green:green/255 blue:blue alpha:0.2] setFill];
-          
-          [[UIColor colorWithRed:red green:green/255 blue:blue/255 alpha:0] 
-           setStroke];
-          CGContextDrawPath(context, kCGPathFillStroke); 
-      }
+  else {
+    [[UIColor colorWithRed:red green:green/255 blue:blue alpha:1] setFill];
+      
+    [[UIColor colorWithRed:215.0/255 green:175.0/255 blue:55.0/255 alpha:1] 
+      setStroke];
+    CGContextDrawPath(context, kCGPathFillStroke); 
   }
     
 }
@@ -74,31 +56,39 @@
   int max = delegate.totalCount;
   float x = rect.size.width / max;
   float y = rect.size.height / 2;
-  float r = (x/2 < y) ? x/2 : y;            
-    for (float i = 0.5; i < max; i++) {
-        if (i < delegate.progressCount && i>delegate.progressCount-1) {            
-            float red=0;
+  float r = (x/2 < y) ? x/2 : y;
+    r = r - 1.5;    
+
+  for (float i = 0.5; i < max; i++) {
+    if (i < delegate.progressCount && i>delegate.progressCount-1) {
+        
+        if(rect.size.height==32){
+                        float red=0;
             float green=255;
             float blue=0;
-            [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:NO red:red green:green blue:blue withVisibilty:TRUE];
-            [self drawStarAtCenter:CGPointMake((i+1)*x, y) withRadius:4*r asGhost:NO red:red green:green blue:blue withVisibilty:FALSE];           
-        }
-        else if (i < delegate.progressCount) {
+            [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:2.5*r asGhost:NO red:red green:green blue:blue];
             
-            float red=1;
-            float green=215.0;
-            float blue=0;
-            [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:NO red:red green:green blue:blue withVisibilty:TRUE];
-        }
-        else if(!(rect.size.height==32)) {
-            
-            
-            float red=1;
-            float green=215.0;
-            float blue=0;
-            [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:YES red:red green:green blue:blue withVisibilty:TRUE];    
-        }
+        }   
+        
+        
+        
     }
+    else if (i < delegate.progressCount && !(rect.size.height==32) ) {
+        
+        float red=1;
+        float green=215.0;
+        float blue=0;
+        [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:NO red:red green:green blue:blue];
+    }
+    else if(!(rect.size.height==32)) {
+        
+        
+        float red=1;
+        float green=215.0;
+        float blue=0;
+        [self drawStarAtCenter:CGPointMake(i*x, y) withRadius:r asGhost:YES red:red green:green blue:blue];    
+    }
+  }
 }
 
 

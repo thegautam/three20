@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */; };
 		56699407125C29BD00359742 /* ProgressStarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 56699406125C29BD00359742 /* ProgressStarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		56699409125C29D000359742 /* ProgressStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56699408125C29D000359742 /* ProgressStarView.m */; };
 		5669940B125C29DE00359742 /* FaceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5669940A125C29DE00359742 /* FaceView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -427,6 +428,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressViewDelegate.h; path = Headers/ProgressViewDelegate.h; sourceTree = "<group>"; };
 		56699406125C29BD00359742 /* ProgressStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressStarView.h; path = Headers/ProgressStarView.h; sourceTree = "<group>"; };
 		56699408125C29D000359742 /* ProgressStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressStarView.m; path = Sources/ProgressStarView.m; sourceTree = "<group>"; };
 		5669940A125C29DE00359742 /* FaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaceView.h; path = Headers/FaceView.h; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 		56699405125C29A400359742 /* StarProgressView */ = {
 			isa = PBXGroup;
 			children = (
+				565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */,
 				56699408125C29D000359742 /* ProgressStarView.m */,
 				56699406125C29BD00359742 /* ProgressStarView.h */,
 			);
@@ -1846,6 +1849,7 @@
 				6ECCA60011C0C105002296C7 /* TTLauncherHighlightView.h in Headers */,
 				56699407125C29BD00359742 /* ProgressStarView.h in Headers */,
 				5669940B125C29DE00359742 /* FaceView.h in Headers */,
+				565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1906,6 +1910,7 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Three20UI" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,

@@ -7,12 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol ProgressStarViewDelegate
-@property (readonly) int progressCount;
-@property (readonly) int totalCount;
-@end
-
+#import "ProgressViewDelegate.h"
 
 @interface ProgressStarView : UIView {
   id<ProgressStarViewDelegate> delegate;

@@ -54,11 +54,14 @@
 //animation
 //#import "ViewTransitionsAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 static const NSTimeInterval kPhotoLoadLongDelay   = 0.5;
 static const NSTimeInterval kPhotoLoadShortDelay  = 0.25;
 static const NSTimeInterval kSlideshowInterval    = 2;
 static const NSInteger kActivityLabelTag          = 96;
+AVAudioPlayer *player;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -251,8 +254,8 @@ static const NSInteger kActivityLabelTag          = 96;
 - (void)updatePhotoView {
   _scrollView.centerPageIndex = _centerPhotoIndex;
   [self loadImages];    
-    [self updateChrome];
-    
+  [self updateChrome];
+  [self playSound:_centerPhotoIndex];    
 }
 
 
@@ -261,6 +264,7 @@ static const NSInteger kActivityLabelTag          = 96;
   id<TTPhoto> previousPhoto = [_centerPhoto autorelease];
   _centerPhoto = [photo retain];
   [self didMoveToPhoto:_centerPhoto fromPhoto:previousPhoto];
+  [self stopPlayingSound];
 }
 
 
@@ -268,7 +272,8 @@ static const NSInteger kActivityLabelTag          = 96;
 - (void)moveToPhotoAtIndex:(NSInteger)photoIndex withDelay:(BOOL)withDelay {
   _centerPhotoIndex = photoIndex == TT_NULL_PHOTO_INDEX ? 0 : photoIndex;   
   [self moveToPhoto:[_photoSource photoAtIndex:_centerPhotoIndex]];
-  _delayLoad = withDelay;
+  _delayLoad = withDelay;    
+
 }
 
 
@@ -293,6 +298,7 @@ static const NSInteger kActivityLabelTag          = 96;
     id<TTPhoto> photo = [_photoSource photoAtIndex:key.intValue];
     [self showPhoto:photo inView:photoView];
   }
+    
 }
 
 
@@ -473,6 +479,7 @@ static const NSInteger kActivityLabelTag          = 96;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)showBarsAnimationDidStop {
   self.navigationController.navigationBarHidden = NO;
+    
 }
 
 
@@ -712,6 +719,7 @@ static const NSInteger kActivityLabelTag          = 96;
   else {
     [self moveToPhotoAtIndex:_centerPhotoIndex withDelay:NO];
   }
+    
 }
 
 
@@ -732,6 +740,7 @@ static const NSInteger kActivityLabelTag          = 96;
       [self updateVisiblePhotoViews];
     }
   }
+   
   [super modelDidFinishLoad:model];
 }
 
@@ -999,7 +1008,17 @@ static const NSInteger kActivityLabelTag          = 96;
 - (int)progressCount {
     return _centerPhotoIndex + 1;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)playSound:(NSInteger)currentIndex {
+    player =[_photoSource newPlayer:currentIndex];    
+    [player prepareToPlay];    
+    [player play];
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)stopPlayingSound {
+    [player stop];
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 @end

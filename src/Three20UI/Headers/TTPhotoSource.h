@@ -19,6 +19,8 @@
 
 // UINavigator
 #import "Three20UINavigator/TTURLObject.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 #define TT_NULL_PHOTO_INDEX NSIntegerMax
 
@@ -43,5 +45,6 @@
 @property (nonatomic, readonly) NSInteger maxPhotoIndex;
 
 - (id<TTPhoto>)photoAtIndex:(NSInteger)index;
+- (AVAudioPlayer *)newPlayer:(NSInteger)currentIndex;
 
 @end

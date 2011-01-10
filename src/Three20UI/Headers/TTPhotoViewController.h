@@ -21,6 +21,8 @@
 #import "Three20UI/TTThumbsViewControllerDelegate.h"
 #import "Three20UI/FaceView.h"
 #import "Three20UI/ProgressStarView.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 //#import "Three20UI/ProgressSmallStarView.h"
 @protocol TTPhotoSource;
 @class TTScrollView;
@@ -126,5 +128,9 @@
  * Shows or hides an activity label on top of the photo.
  */
 - (void)showActivity:(NSString*)title;
+//to play a voice for photo at current index
+- (void)playSound:(NSInteger)currentIndex;
+//to stop playing voice when photo is swapped
+- (void)stopPlayingSound;
 
 @end

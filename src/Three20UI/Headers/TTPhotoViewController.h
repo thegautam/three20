@@ -21,6 +21,7 @@
 #import "Three20UI/TTThumbsViewControllerDelegate.h"
 #import "Three20UI/FaceView.h"
 #import "Three20UI/ProgressStarView.h"
+#import "Three20UI/StarAnimationView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -49,6 +50,8 @@
 	
   UIImageView*      _progressView;
   ProgressStarView* _progressStarView;
+  StarAnimationView* _starAnimationView;
+  CGRect            _starAnimationFrame;
 
   TTStyle*          _captionStyle;
 

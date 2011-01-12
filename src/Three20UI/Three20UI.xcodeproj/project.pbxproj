@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */; };
+		565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		565766D412DA8A1000C59D8A /* StarAnimationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D312DA8A1000C59D8A /* StarAnimationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		565766D612DA8A1F00C59D8A /* StarAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 565766D512DA8A1F00C59D8A /* StarAnimationView.m */; };
 		56699407125C29BD00359742 /* ProgressStarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 56699406125C29BD00359742 /* ProgressStarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		56699409125C29D000359742 /* ProgressStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56699408125C29D000359742 /* ProgressStarView.m */; };
 		5669940B125C29DE00359742 /* FaceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5669940A125C29DE00359742 /* FaceView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -429,6 +431,8 @@
 
 /* Begin PBXFileReference section */
 		565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressViewDelegate.h; path = Headers/ProgressViewDelegate.h; sourceTree = "<group>"; };
+		565766D312DA8A1000C59D8A /* StarAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarAnimationView.h; path = Headers/StarAnimationView.h; sourceTree = "<group>"; };
+		565766D512DA8A1F00C59D8A /* StarAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarAnimationView.m; path = Sources/StarAnimationView.m; sourceTree = "<group>"; };
 		56699406125C29BD00359742 /* ProgressStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressStarView.h; path = Headers/ProgressStarView.h; sourceTree = "<group>"; };
 		56699408125C29D000359742 /* ProgressStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressStarView.m; path = Sources/ProgressStarView.m; sourceTree = "<group>"; };
 		5669940A125C29DE00359742 /* FaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaceView.h; path = Headers/FaceView.h; sourceTree = "<group>"; };
@@ -764,6 +768,8 @@
 		56699405125C29A400359742 /* StarProgressView */ = {
 			isa = PBXGroup;
 			children = (
+				565766D512DA8A1F00C59D8A /* StarAnimationView.m */,
+				565766D312DA8A1000C59D8A /* StarAnimationView.h */,
 				565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */,
 				56699408125C29D000359742 /* ProgressStarView.m */,
 				56699406125C29BD00359742 /* ProgressStarView.h */,
@@ -1850,6 +1856,7 @@
 				56699407125C29BD00359742 /* ProgressStarView.h in Headers */,
 				5669940B125C29DE00359742 /* FaceView.h in Headers */,
 				565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */,
+				565766D412DA8A1000C59D8A /* StarAnimationView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2185,6 +2192,7 @@
 				6ECCA5FE11C0C0F6002296C7 /* TTLauncherHighlightView.m in Sources */,
 				56699409125C29D000359742 /* ProgressStarView.m in Sources */,
 				5669940D125C29EC00359742 /* FaceView.m in Sources */,
+				565766D612DA8A1F00C59D8A /* StarAnimationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

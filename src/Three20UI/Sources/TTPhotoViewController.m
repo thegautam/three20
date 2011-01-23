@@ -319,7 +319,7 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)updatePhotoView {
   _scrollView.centerPageIndex = _centerPhotoIndex;
-  [self loadImages];    
+  [self loadImages];
   [self updateChrome];
   [self playSound:_centerPhotoIndex];    
 }
@@ -338,8 +338,7 @@ AVAudioPlayer *player;
 - (void)moveToPhotoAtIndex:(NSInteger)photoIndex withDelay:(BOOL)withDelay {
   _centerPhotoIndex = photoIndex == TT_NULL_PHOTO_INDEX ? 0 : photoIndex;
   [self moveToPhoto:[_photoSource photoAtIndex:_centerPhotoIndex]];
-  _delayLoad = withDelay;    
-
+  _delayLoad = withDelay;
 }
 
 
@@ -364,7 +363,6 @@ AVAudioPlayer *player;
     id<TTPhoto> photo = [_photoSource photoAtIndex:key.intValue];
     [self showPhoto:photo inView:photoView];
   }
-    
 }
 
 
@@ -545,7 +543,6 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)showBarsAnimationDidStop {
   self.navigationController.navigationBarHidden = NO;
-    
 }
 
 
@@ -786,7 +783,6 @@ AVAudioPlayer *player;
   } else {
     [self moveToPhotoAtIndex:_centerPhotoIndex withDelay:NO];
   }
-    
 }
 
 
@@ -807,7 +803,6 @@ AVAudioPlayer *player;
       [self updateVisiblePhotoViews];
     }
   }
-   
   [super modelDidFinishLoad:model];
 }
 

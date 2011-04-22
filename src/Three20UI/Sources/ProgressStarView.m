@@ -13,15 +13,16 @@
 
 @synthesize delegate;
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+    if ((self = [super initWithFrame:frame])) {
       self.clearsContextBeforeDrawing = YES;
       self.opaque = NO;
     }
     return self;
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)drawRect:(CGRect)rect {
   int max = delegate.totalCount;
   float x = rect.size.width / max;
@@ -39,7 +40,7 @@
   }
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)dealloc {
     [super dealloc];
 }

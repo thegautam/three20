@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -169,8 +169,11 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)startImageLoadTimer:(NSTimeInterval)delay {
   [_loadTimer invalidate];
-  _loadTimer = [NSTimer scheduledTimerWithTimeInterval:delay target:self
-                                              selector:@selector(loadImageDelayed) userInfo:nil repeats:NO];
+  _loadTimer = [NSTimer scheduledTimerWithTimeInterval:delay
+                                                target:self
+                                              selector:@selector(loadImageDelayed)
+                                              userInfo:nil
+                                               repeats:NO];
 }
 
 
@@ -187,6 +190,7 @@ AVAudioPlayer *player;
   for (TTPhotoView* photoView in _scrollView.visiblePages.objectEnumerator) {
     if (photoView == centerPhotoView) {
       [photoView loadPreview:NO];
+
     } else {
       [photoView loadPreview:YES];
     }
@@ -195,48 +199,51 @@ AVAudioPlayer *player;
   if (_delayLoad) {
     _delayLoad = NO;
     [self startImageLoadTimer:kPhotoLoadLongDelay];
+
   } else {
     [centerPhotoView loadImage];
   }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)animateStar {
   // Bounces the star back to the center.
   CALayer *welcomeLayer = _starAnimationView.layer;
-	
+
   // Create a keyframe animation to follow a path back to the center.
   CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
   bounceAnimation.removedOnCompletion = NO;
-	
+
   CGFloat animationDuration = 0.5;
-    
+
   // Create the path for the bounces.
   CGMutablePathRef thePath = CGPathCreateMutable();
-	
+
   CGFloat midX = _progressStarView.center.x;
   CGFloat midY = _progressStarView.center.y;
   CGFloat originalOffsetX = _starAnimationView.center.x - midX;
   CGFloat originalOffsetY = _starAnimationView.center.y - midY;
   CGFloat offsetDivider = 4.0;
-	
+
   BOOL stopBouncing = NO;
-	
+
   // Start the path at the star's current location.
   CGPathMoveToPoint(thePath, NULL, _starAnimationView.center.x, _starAnimationView.center.y);
   CGPathAddLineToPoint(thePath, NULL, midX, midY);
-	
+
   // Add to the bounce path in decreasing excursions from the center.
   while (stopBouncing != YES) {
-    CGPathAddLineToPoint(thePath, NULL, midX + originalOffsetX/offsetDivider, midY + originalOffsetY/offsetDivider);
+    CGPathAddLineToPoint(thePath, NULL,
+        midX + originalOffsetX/offsetDivider, midY + originalOffsetY/offsetDivider);
     CGPathAddLineToPoint(thePath, NULL, midX, midY);
-        
+
     offsetDivider += 4;
     animationDuration += 1/offsetDivider;
     if ((abs(originalOffsetX/offsetDivider) < 6) && (abs(originalOffsetY/offsetDivider) < 6)) {
       stopBouncing = YES;
     }
   }
-	
+
   bounceAnimation.path = thePath;
   bounceAnimation.duration = animationDuration;
   CGPathRelease(thePath);
@@ -246,21 +253,21 @@ AVAudioPlayer *player;
   transformAnimation.removedOnCompletion = YES;
   transformAnimation.duration = animationDuration;
   transformAnimation.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 20, 20)];
-	
+
   // Create an animation group to combine the keyframe and basic animations.
   CAAnimationGroup *theGroup = [CAAnimationGroup animation];
-	
+
   // Set self as the delegate to allow for a callback to reenable user interaction.
   theGroup.delegate = self;
   theGroup.duration = animationDuration;
   theGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-	
   theGroup.animations = [NSArray arrayWithObjects:transformAnimation, bounceAnimation, nil];
-	
+
   // Add the animation group to the layer.
   [welcomeLayer addAnimation:theGroup forKey:@"animatestarAnimationViewToCenter"];
-	
-  // Set the view's center and transformation to the original values in preparation for the end of the animation.
+
+  // Set the view's center and transformation to the original values
+  // in preparation for the end of the animation.
   _starAnimationView.center = _progressStarView.center;
   _starAnimationView.transform = CGAffineTransformIdentity;
 }
@@ -269,6 +276,7 @@ AVAudioPlayer *player;
 - (void)updateChrome {
   if (_photoSource.numberOfPhotos < 2) {
     self.title = _photoSource.title;
+
   } else {
     self.title = [NSString stringWithFormat:
                   TTLocalizedString(@"%d of %d", @"Current page in photo browser (1 of 10)"),
@@ -279,27 +287,30 @@ AVAudioPlayer *player;
     if (_photoSource.numberOfPhotos > 1) {
         UIBarButtonItem *segmentBarButtonItem =
         [[UIBarButtonItem alloc] initWithCustomView:_segmentedControl];
-        
-        self.navigationItem.rightBarButtonItem = segmentBarButtonItem;	
+
+        self.navigationItem.rightBarButtonItem = segmentBarButtonItem;
         [segmentBarButtonItem release];
-    } else {
+    }
+
+    else {
       self.navigationItem.rightBarButtonItem = nil;
     }
+
   } else {
     self.navigationItem.rightBarButtonItem = nil;
   }
 
+  BOOL nextEnabled = _centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1;
   [_segmentedControl setEnabled:_centerPhotoIndex > 0 forSegmentAtIndex:0];
-  [_segmentedControl setEnabled:_centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1
-    forSegmentAtIndex:1];
- 
+  [_segmentedControl setEnabled:nextEnabled forSegmentAtIndex:1];
+
   // Reset the animation frame position.
   _starAnimationView.frame = _starAnimationFrame;
 
   // Refresh the animation and progress views.
   [_starAnimationView setNeedsDisplay];
   [_progressStarView setNeedsDisplay];
-    
+
   // Animate.
   [self animateStar];
 }
@@ -309,6 +320,7 @@ AVAudioPlayer *player;
 - (void)updateToolbarWithOrientation:(UIInterfaceOrientation)interfaceOrientation {
   if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
     _toolbar.height = TT_TOOLBAR_HEIGHT;
+
   } else {
     _toolbar.height = TT_LANDSCAPE_TOOLBAR_HEIGHT+1;
   }
@@ -321,7 +333,7 @@ AVAudioPlayer *player;
   _scrollView.centerPageIndex = _centerPhotoIndex;
   [self loadImages];
   [self updateChrome];
-  [self playSound:_centerPhotoIndex];    
+  [self playSound:_centerPhotoIndex];
 }
 
 
@@ -402,6 +414,7 @@ AVAudioPlayer *player;
   if ((self.hasViewAppeared || self.isViewAppearing) && progress >= 0 && !self.centerPhotoView) {
     [self.statusView showProgress:progress];
     self.statusView.hidden = NO;
+
   } else {
     _photoStatusView.hidden = YES;
   }
@@ -416,6 +429,7 @@ AVAudioPlayer *player;
   if ((self.hasViewAppeared || self.isViewAppearing) && status && !self.centerPhotoView) {
     [self.statusView showStatus:status];
     self.statusView.hidden = NO;
+
   } else {
     _photoStatusView.hidden = YES;
   }
@@ -435,6 +449,7 @@ AVAudioPlayer *player;
   if ([self.photoSource respondsToSelector:@selector(URLValueWithName:)]) {
     return [self.photoSource performSelector:@selector(URLValueWithName:)
                                   withObject:@"TTThumbsViewController"];
+
   } else {
     return nil;
   }
@@ -448,8 +463,10 @@ AVAudioPlayer *player;
     if (URL) {
       // The photo source has a URL mapping in TTURLMap, so we use that to show the thumbs
       NSDictionary* query = [NSDictionary dictionaryWithObject:self forKey:@"delegate"];
-      _thumbsController = [[[TTNavigator navigator] viewControllerForURL:URL query:query] retain];
-      [[TTNavigator navigator].URLMap setObject:_thumbsController forURL:URL];
+      TTBaseNavigator* navigator = [TTBaseNavigator navigatorForView:self.view];
+      _thumbsController = [[navigator viewControllerForURL:URL query:query] retain];
+      [navigator.URLMap setObject:_thumbsController forURL:URL];
+
     } else {
       // The photo source had no URL mapping in TTURLMap, so we let the subclass show the thumbs
       _thumbsController = [[self createThumbsViewController] retain];
@@ -458,7 +475,8 @@ AVAudioPlayer *player;
   }
 
   if (URL) {
-    TTOpenURL(URL);
+    TTOpenURLFromView(URL, self.view);
+
   } else {
     if ([self.navigationController isKindOfClass:[TTNavigationController class]]) {
       [(TTNavigationController*)self.navigationController
@@ -476,6 +494,7 @@ AVAudioPlayer *player;
 - (void)slideshowTimer {
   if (_centerPhotoIndex == _photoSource.numberOfPhotos-1) {
     _scrollView.centerPageIndex = 0;
+
   } else {
     _scrollView.centerPageIndex = _centerPhotoIndex+1;
   }
@@ -485,14 +504,20 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)playAction {
   if (!_slideshowTimer) {
-    UIBarButtonItem* pauseButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:
-                                     UIBarButtonSystemItemPause target:self action:@selector(pauseAction)] autorelease];
+    UIBarButtonItem* pauseButton =
+      [[[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemPause
+                                                     target: self
+                                                     action: @selector(pauseAction)]
+       autorelease];
     pauseButton.tag = 1;
 
     [_toolbar replaceItemWithTag:1 withItem:pauseButton];
 
     _slideshowTimer = [NSTimer scheduledTimerWithTimeInterval:kSlideshowInterval
-                                                       target:self selector:@selector(slideshowTimer) userInfo:nil repeats:YES];
+                                                       target:self
+                                                     selector:@selector(slideshowTimer)
+                                                     userInfo:nil
+                                                      repeats:YES];
   }
 }
 
@@ -500,8 +525,11 @@ AVAudioPlayer *player;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)pauseAction {
   if (_slideshowTimer) {
-    UIBarButtonItem* playButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:
-                                    UIBarButtonSystemItemPlay target:self action:@selector(playAction)] autorelease];
+    UIBarButtonItem* playButton =
+      [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
+                                                     target:self
+                                                     action:@selector(playAction)]
+       autorelease];
     playButton.tag = 1;
 
     [_toolbar replaceItemWithTag:1 withItem:playButton];
@@ -535,7 +563,7 @@ AVAudioPlayer *player;
   if (segmentedControl.selectedSegmentIndex == 0) {
     [self previousAction];
   }
-  else if (segmentedControl.selectedSegmentIndex == 1) {	  
+  else if (segmentedControl.selectedSegmentIndex == 1) {
     [self nextAction];
   }
 }
@@ -590,15 +618,15 @@ AVAudioPlayer *player;
   _starAnimationView = [[StarAnimationView alloc] initWithFrame:_starAnimationFrame];
   _starAnimationView.delegate = self;
   [_innerView addSubview:_starAnimationView];
-    
-    
+
+
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
   _scrollView.dataSource = self;
   _scrollView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
   _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   [_innerView addSubview:_scrollView];
- 
+
   _segmentedControl = [[UISegmentedControl alloc] initWithItems:
     [NSArray arrayWithObjects:
       TTIMAGE(@"bundle://Three20.bundle/images/previousIcon.png"),
@@ -607,7 +635,7 @@ AVAudioPlayer *player;
   _segmentedControl.frame = CGRectMake(0, 0, 90, 30);
   _segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
   _segmentedControl.momentary = YES;
-  [_segmentedControl addTarget:self action:@selector(segmentAction:) 
+  [_segmentedControl addTarget:self action:@selector(segmentAction:)
     forControlEvents:UIControlEventValueChanged];
 }
 
@@ -687,12 +715,15 @@ AVAudioPlayer *player;
     [UIView setAnimationDelegate:self];
     if (show) {
       [UIView setAnimationDidStopSelector:@selector(showBarsAnimationDidStop)];
+
     } else {
       [UIView setAnimationDidStopSelector:@selector(hideBarsAnimationDidStop)];
     }
+
   } else {
     if (show) {
       [self showBarsAnimationDidStop];
+
     } else {
       [self hideBarsAnimationDidStop];
     }
@@ -759,6 +790,7 @@ AVAudioPlayer *player;
   if (show) {
     [_scrollView reloadData];
     [self showStatus:TTLocalizedString(@"This photo set contains no photos.", @"")];
+
   } else {
     [self showStatus:nil];
   }
@@ -769,6 +801,7 @@ AVAudioPlayer *player;
 - (void)showError:(BOOL)show {
   if (show) {
     [self showStatus:TTDescriptionForError(_modelError)];
+
   } else {
     [self showStatus:nil];
   }
@@ -780,6 +813,7 @@ AVAudioPlayer *player;
   if (_centerPhotoIndex >= _photoSource.numberOfPhotos) {
     // We were positioned at an index that is past the end, so move to the last photo
     [self moveToPhotoAtIndex:_photoSource.numberOfPhotos - 1 withDelay:NO];
+
   } else {
     [self moveToPhotoAtIndex:_centerPhotoIndex withDelay:NO];
   }
@@ -799,6 +833,7 @@ AVAudioPlayer *player;
       [self moveToNextValidPhoto];
       [_scrollView reloadData];
       [self resetVisiblePhotoViews];
+
     } else {
       [self updateVisiblePhotoViews];
     }
@@ -910,6 +945,7 @@ AVAudioPlayer *player;
 - (void)scrollView:(TTScrollView*)scrollView tapped:(UITouch*)touch {
   if ([self isShowingChrome]) {
     [self showBars:NO animated:YES];
+
   } else {
     [self showBars:YES animated:NO];
   }
@@ -1006,6 +1042,7 @@ AVAudioPlayer *player;
 
       [self moveToPhotoAtIndex:photo.index withDelay:NO];
       self.model = _photoSource;
+
     } else {
       [self moveToPhotoAtIndex:photo.index withDelay:NO];
       [self refresh];
@@ -1042,6 +1079,7 @@ AVAudioPlayer *player;
     [_innerView addSubview:label];
 
     _scrollView.scrollEnabled = NO;
+
   } else {
     UIView* label = [_innerView viewWithTag:kActivityLabelTag];
     if (label) {
@@ -1071,8 +1109,8 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)playSound:(NSInteger)currentIndex {
-    player =[_photoSource newPlayer:currentIndex];    
-    [player prepareToPlay];    
+    player =[_photoSource newPlayer:currentIndex];
+    [player prepareToPlay];
     [player play];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////

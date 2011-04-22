@@ -1,5 +1,5 @@
 //
-// Copyright 2009-2010 Facebook
+// Copyright 2009-2011 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@
   UIToolbar*        _toolbar;
   UIBarButtonItem*  _nextButton;
   UIBarButtonItem*  _previousButton;
-	
+
   UIImageView*      _progressView;
   ProgressStarView* _progressStarView;
   StarAnimationView* _starAnimationView;
@@ -66,8 +66,8 @@
 
   TTThumbsViewController* _thumbsController;
 
-  UISegmentedControl*     _segmentedControl;	
-	
+  UISegmentedControl*     _segmentedControl;
+
   id<TTPhotoSource> _photoSource;
 }
 

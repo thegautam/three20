@@ -79,7 +79,7 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+  if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
     self.navigationItem.backBarButtonItem =
       [[[UIBarButtonItem alloc]
         initWithTitle:
@@ -104,7 +104,7 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithPhoto:(id<TTPhoto>)photo {
-  if (self = [self initWithNibName:nil bundle:nil]) {
+  if ((self = [self initWithNibName:nil bundle:nil])) {
     self.centerPhoto = photo;
   }
 
@@ -114,7 +114,7 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithPhotoSource:(id<TTPhotoSource>)photoSource {
-  if (self = [self initWithNibName:nil bundle:nil]) {
+  if ((self = [self initWithNibName:nil bundle:nil])) {
     self.photoSource = photoSource;
   }
 
@@ -124,7 +124,7 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)init {
-  if (self = [self initWithNibName:nil bundle:nil]) {
+  if ((self = [self initWithNibName:nil bundle:nil])) {
   }
 
   return self;

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		565766D412DA8A1000C59D8A /* StarAnimationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D312DA8A1000C59D8A /* StarAnimationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		565766D612DA8A1F00C59D8A /* StarAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 565766D512DA8A1F00C59D8A /* StarAnimationView.m */; };
+		56699407125C29BD00359742 /* ProgressStarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 56699406125C29BD00359742 /* ProgressStarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56699409125C29D000359742 /* ProgressStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56699408125C29D000359742 /* ProgressStarView.m */; };
+		5669940B125C29DE00359742 /* FaceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5669940A125C29DE00359742 /* FaceView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5669940D125C29EC00359742 /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5669940C125C29EC00359742 /* FaceView.m */; };
 		666E18E912945430001C1D97 /* TTSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E18E712945430001C1D97 /* TTSplitViewController.m */; };
 		666E18F51294543F001C1D97 /* TTSplitViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 666E18F41294543F001C1D97 /* TTSplitViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66ADC8C91290AC0200855386 /* TTExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66ADC8C61290AC0200855386 /* TTExtensionsController.m */; };
@@ -18,13 +25,6 @@
 		66F2E85F12D426DA006FB485 /* TTTableViewNetworkEnabledDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 66F2E85D12D426DA006FB485 /* TTTableViewNetworkEnabledDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66F2E86512D426EF006FB485 /* TTTableViewNetworkEnabledDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F2E86312D426EF006FB485 /* TTTableViewNetworkEnabledDelegate.m */; };
 		6DB1E37D13CA885B00A72466 /* TTLauncherPersistenceMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DB1E37C13CA885B00A72466 /* TTLauncherPersistenceMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		565766D412DA8A1000C59D8A /* StarAnimationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D312DA8A1000C59D8A /* StarAnimationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		565766D612DA8A1F00C59D8A /* StarAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 565766D512DA8A1F00C59D8A /* StarAnimationView.m */; };
-		56699407125C29BD00359742 /* ProgressStarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 56699406125C29BD00359742 /* ProgressStarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		56699409125C29D000359742 /* ProgressStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56699408125C29D000359742 /* ProgressStarView.m */; };
-		5669940B125C29DE00359742 /* FaceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5669940A125C29DE00359742 /* FaceView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5669940D125C29EC00359742 /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5669940C125C29EC00359742 /* FaceView.m */; };
 		6E60820111B0C31400C93CD4 /* TTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E6081FF11B0C31400C93CD4 /* TTNavigationController.m */; };
 		6E60820311B0C32600C93CD4 /* TTNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E60820211B0C32600C93CD4 /* TTNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E6454741184D2CD00F08CB1 /* Three20UI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E6454731184D2CD00F08CB1 /* Three20UI.h */; settings = {ATTRIBUTES = (Public, ); }; };

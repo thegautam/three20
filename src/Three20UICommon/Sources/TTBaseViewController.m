@@ -28,6 +28,11 @@
 #import "Three20Core/TTDebug.h"
 #import "Three20Core/TTDebugFlags.h"
 
+//Style
+#import "Three20Style/TTGlobalStyle.h"
+#import "Three20Style/TTDefaultStyleSheet.h"
+#import "Three20Style/TTStyleSheet.h"
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -167,9 +172,12 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
+   [super viewWillDisappear:animated];
+   _isViewAppearing = NO;
 
-  _isViewAppearing = NO;
+   //re-attain navigation control bar color
+   UINavigationBar* bar = self.navigationController.navigationBar;
+   bar.tintColor=TTSTYLEVAR(toolbarTintColor);
 }
 
 

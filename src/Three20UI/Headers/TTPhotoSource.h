@@ -45,6 +45,7 @@
 @property (nonatomic, readonly) NSInteger maxPhotoIndex;
 
 - (id<TTPhoto>)photoAtIndex:(NSInteger)index;
+- (void) updatePreviousIndex:(NSInteger)centerPhotoIndex;
 - (AVAudioPlayer *)newPlayer:(NSInteger)currentIndex;
 
 @end

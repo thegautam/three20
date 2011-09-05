@@ -29,7 +29,6 @@
 	CGContextBeginPath(context);
 
 	for (int i=0; i<100; i++) {
-		NSLog(@"Random %g", R);
 		CGFloat x = rect.origin.x + rect.size.width * R;
 		CGFloat y = rect.origin.y + rect.size.height * R;
 		CGContextAddArc(context, x, y, r * R, 0, pi*2, 1);

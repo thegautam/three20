@@ -208,6 +208,9 @@ AVAudioPlayer *player;
   } else {
     [centerPhotoView loadImage];
   }
+    //to store previous index of the photo
+    [_photoSource updatePreviousIndex:_centerPhotoIndex];
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

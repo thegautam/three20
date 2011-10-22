@@ -1109,9 +1109,12 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)playSound:(NSInteger)currentIndex {
-    player =[_photoSource newPlayer:currentIndex];
+    player = [_photoSource newPlayer:currentIndex];
+    if (player != nil)
+    {
     [player prepareToPlay];
     [player play];
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)stopPlayingSound {

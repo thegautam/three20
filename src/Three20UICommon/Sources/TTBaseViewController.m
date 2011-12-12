@@ -162,6 +162,7 @@
     UINavigationBar* bar = self.navigationController.navigationBar;
     bar.tintColor = _navigationBarTintColor;
     bar.barStyle = _navigationBarStyle;
+    bar.translucent = YES;
 
     if (!TTIsPad()) {
       [[UIApplication sharedApplication] setStatusBarStyle:_statusBarStyle animated:YES];

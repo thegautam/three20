@@ -573,6 +573,8 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)showBarsAnimationDidStop {
+  // Hack to prevent hiding of navigation bar by status bar.
+  self.navigationController.navigationBarHidden = YES;
   self.navigationController.navigationBarHidden = NO;
 }
 

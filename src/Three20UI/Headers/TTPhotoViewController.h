@@ -69,6 +69,8 @@
   UISegmentedControl*     _segmentedControl;
 
   id<TTPhotoSource> _photoSource;
+    
+  AVAudioPlayer *_player;
 }
 
 /**
@@ -130,9 +132,10 @@
  * Shows or hides an activity label on top of the photo.
  */
 - (void)showActivity:(NSString*)title;
-//to play a voice for photo at current index
+
+/**
+ * Start playing the sound for current photo.
+ */
 - (void)playSound:(NSInteger)currentIndex;
-//to stop playing voice when photo is swapped
-- (void)stopPlayingSound;
 
 @end

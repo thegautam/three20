@@ -63,8 +63,6 @@ static const NSTimeInterval kPhotoLoadLongDelay   = 0.5;
 static const NSTimeInterval kPhotoLoadShortDelay  = 0.25;
 static const NSTimeInterval kSlideshowInterval    = 2;
 static const NSInteger kActivityLabelTag          = 96;
-AVAudioPlayer *player;
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,7 +145,7 @@ AVAudioPlayer *player;
   TT_RELEASE_SAFELY(_statusText);
   TT_RELEASE_SAFELY(_captionStyle);
   TT_RELEASE_SAFELY(_defaultImage);
-
+  TT_RELEASE_SAFELY(_player)
   [super dealloc];
 }
 
@@ -345,7 +343,6 @@ AVAudioPlayer *player;
   id<TTPhoto> previousPhoto = [_centerPhoto autorelease];
   _centerPhoto = [photo retain];
   [self didMoveToPhoto:_centerPhoto fromPhoto:previousPhoto];
-  [self stopPlayingSound];
 }
 
 
@@ -908,7 +905,6 @@ AVAudioPlayer *player;
   [self showBars:NO animated:YES];
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)scrollViewDidEndDecelerating:(TTScrollView*)scrollView {
   [self startImageLoadTimer:kPhotoLoadShortDelay];
@@ -1114,17 +1110,24 @@ AVAudioPlayer *player;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)playSound:(NSInteger)currentIndex {
-    player = [_photoSource newPlayer:currentIndex];
-    if (player != nil)
-    {
-    [player prepareToPlay];
-    [player play];
+
+    NSURL *voice = [_photoSource voiceAtIndex:currentIndex];
+
+    if (!_player) {
+      _player = [[AVAudioPlayer alloc] init];
     }
+    else
+    {
+      if ([_player isPlaying])
+      {
+          [_player stop];
+      }
+    }
+
+    [_player initWithContentsOfURL:voice error:nil];
+    [_player play];
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)stopPlayingSound {
-    [player stop];
-}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 @end

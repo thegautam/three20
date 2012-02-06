@@ -1124,8 +1124,15 @@ static const NSInteger kActivityLabelTag          = 96;
       }
     }
 
-    [_player initWithContentsOfURL:voice error:nil];
-    [_player play];
+    NSError *error;
+    if (![_player initWithContentsOfURL:voice error:&error])
+    {
+      NSLog(@"Can't play %@ %@", [voice path], [error localizedDescription]);
+    }
+    else
+    {
+      [_player play];
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

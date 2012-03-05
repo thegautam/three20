@@ -1136,6 +1136,7 @@ static const NSInteger kActivityLabelTag          = 96;
     }
     else
     {
+      [_player setVolume:0.1];
       [_player play];
     }
 }

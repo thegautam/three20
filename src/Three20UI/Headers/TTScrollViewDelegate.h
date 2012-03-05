@@ -52,6 +52,8 @@
 
 - (void)scrollView:(TTScrollView*)scrollView tapped:(UITouch*)touch;
 
+- (void)scrollView:(TTScrollView*)scrollView doubleTapped:(UITouch*)touch;
+
 - (void)scrollViewDidBeginHolding:(TTScrollView*)scrollView;
 
 - (void)scrollViewDidEndHolding:(TTScrollView*)scrollView;

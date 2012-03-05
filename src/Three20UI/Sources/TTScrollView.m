@@ -1540,16 +1540,10 @@ static const CGFloat kFrameDuration = 1.0/40.0f;
           [self startTapTimer:touch];
 
         // Double tap, zoom out to fit or zoom in to the 1/3 of the maximum scale.
-
-        } else if (touch.tapCount == 2 && self.canZoom) {
-          CGPoint pointToZoom = [self touchLocation:touch];
-
-          if (self.zoomed) {
-            [self zoomToFit];
-
-          } else {
-            [self setZoomScale:_maximumZoomScale / 1.3  withPoint:pointToZoom animated:YES];
-          }
+        } else if (touch.tapCount == 2) {
+            if ([_delegate respondsToSelector:@selector(scrollView:doubleTapped:)]) {
+                [_delegate scrollView:self doubleTapped:touch];
+            }
         }
 
         // The scroll view will continue to move a short distance afterwards.

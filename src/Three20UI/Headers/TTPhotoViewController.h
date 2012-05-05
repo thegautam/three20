@@ -69,7 +69,7 @@
   UISegmentedControl*     _segmentedControl;
 
   id<TTPhotoSource> _photoSource;
-    
+
   AVAudioPlayer *_player;
 }
 

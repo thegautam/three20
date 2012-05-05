@@ -29,6 +29,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		566F63671555CDD1004FC160 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 566F63621555CDD1004FC160 /* Three20Style.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BEF31F3A0F352DF5000DE5D2;
+			remoteInfo = Three20Style;
+		};
+		566F63691555CDD1004FC160 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 566F63621555CDD1004FC160 /* Three20Style.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB9E6C6210B6A8F800DE563C;
+			remoteInfo = Three20StyleUnitTests;
+		};
+		566F636C1555CDDE004FC160 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 566F63621555CDD1004FC160 /* Three20Style.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
+			remoteInfo = Three20Style;
+		};
 		6EE7366B11849C5800A35176 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6EE7366611849C5800A35176 /* Three20Core.xcodeproj */;
@@ -67,6 +88,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		566F63621555CDD1004FC160 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../Three20Style/Three20Style.xcodeproj; sourceTree = "<group>"; };
 		666E16BB12944956001C1D97 /* UISplitViewController+TTNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UISplitViewController+TTNavigator.h"; path = "Headers/UISplitViewController+TTNavigator.h"; sourceTree = "<group>"; };
 		666E16BC12944956001C1D97 /* UIView+TTUICommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+TTUICommon.h"; path = "Headers/UIView+TTUICommon.h"; sourceTree = "<group>"; };
 		666E16C112944961001C1D97 /* UISplitViewController+TTNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UISplitViewController+TTNavigator.m"; path = "Sources/UISplitViewController+TTNavigator.m"; sourceTree = "<group>"; };
@@ -140,6 +162,15 @@
 			name = CustomTemplate;
 			sourceTree = "<group>";
 		};
+		566F63631555CDD1004FC160 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				566F63681555CDD1004FC160 /* libThree20Style.a */,
+				566F636A1555CDD1004FC160 /* StyleUnitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		6E08B274118282F700DA1579 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +184,7 @@
 		6E08B743118397FA00DA1579 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				566F63621555CDD1004FC160 /* Three20Style.xcodeproj */,
 				6EE7366611849C5800A35176 /* Three20Core.xcodeproj */,
 			);
 			name = Dependencies;
@@ -264,6 +296,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				566F636D1555CDDE004FC160 /* PBXTargetDependency */,
 				6EE7367111849C6300A35176 /* PBXTargetDependency */,
 			);
 			name = Three20UICommon;
@@ -317,6 +350,10 @@
 					ProductGroup = 6EE7366711849C5800A35176 /* Products */;
 					ProjectRef = 6EE7366611849C5800A35176 /* Three20Core.xcodeproj */;
 				},
+				{
+					ProductGroup = 566F63631555CDD1004FC160 /* Products */;
+					ProjectRef = 566F63621555CDD1004FC160 /* Three20Style.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -327,6 +364,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		566F63681555CDD1004FC160 /* libThree20Style.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libThree20Style.a;
+			remoteRef = 566F63671555CDD1004FC160 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		566F636A1555CDD1004FC160 /* StyleUnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = StyleUnitTests.octest;
+			remoteRef = 566F63691555CDD1004FC160 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		6EE7366C11849C5800A35176 /* libThree20Core.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -424,6 +475,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		566F636D1555CDDE004FC160 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Three20Style;
+			targetProxy = 566F636C1555CDDE004FC160 /* PBXContainerItemProxy */;
+		};
 		6EE7367111849C6300A35176 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Three20Core;

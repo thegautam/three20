@@ -203,19 +203,7 @@ NSString* TTDeviceModelName() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 BOOL TTIsSupportedOrientation(UIInterfaceOrientation orientation) {
-  if (TTIsPad()) {
-    return YES;
-
-  } else {
-    switch (orientation) {
-      case UIInterfaceOrientationPortrait:
-      case UIInterfaceOrientationLandscapeLeft:
-      case UIInterfaceOrientationLandscapeRight:
-        return YES;
-      default:
-        return NO;
-    }
-  }
+  return NO;
 }
 
 

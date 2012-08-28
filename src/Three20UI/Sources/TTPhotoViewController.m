@@ -1118,28 +1118,32 @@ static const NSInteger kActivityLabelTag          = 96;
 - (void)playSound:(NSInteger)currentIndex {
 
     NSURL *voice = [_photoSource voiceAtIndex:currentIndex];
+    NSError *error;
 
     if (!_player) {
-      _player = [[AVAudioPlayer alloc] init];
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:voice error:&error];
+        if (!_player)
+        {
+            NSLog(@"Can't play %@ %@", [voice path], [error localizedDescription]);
+            return;
+        }
     }
     else
     {
-      if ([_player isPlaying])
-      {
-          [_player stop];
-      }
+        if ([_player isPlaying])
+        {
+            [_player stop];
+        }
+
+        if (![_player initWithContentsOfURL:voice error:&error])
+        {
+            NSLog(@"Can't play %@ %@", [voice path], [error localizedDescription]);
+            return;
+        }
     }
 
-    NSError *error;
-    if (![_player initWithContentsOfURL:voice error:&error])
-    {
-      NSLog(@"Can't play %@ %@", [voice path], [error localizedDescription]);
-    }
-    else
-    {
-      [_player setVolume:0.1];
-      [_player play];
-    }
+    [_player setVolume:0.1];
+    [_player play];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

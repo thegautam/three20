@@ -93,7 +93,7 @@ static const NSInteger kActivityLabelTag          = 96;
     self.navigationBarStyle = UIBarStyleBlackTranslucent;
     self.navigationBarTintColor = nil;
     self.wantsFullScreenLayout = YES;
-    self.hidesBottomBarWhenPushed = YES;
+    self.hidesBottomBarWhenPushed = YES;;
 
     self.defaultImage = TTIMAGE(@"bundle://Three20.bundle/images/photoDefault.png");
   }

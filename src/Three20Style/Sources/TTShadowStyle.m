@@ -105,17 +105,8 @@
   CGContextRef ctx = UIGraphicsGetCurrentContext();
   CGContextSaveGState(ctx);
 
-  // Due to a bug in OS versions 3.2 and 4.0, the shadow appears upside-down. It pains me to
-  // write this, but a lot of research has failed to turn up a way to detect the flipped shadow
-  // programmatically
-  float shadowYOffset = -_offset.height;
-  NSString *osVersion = [UIDevice currentDevice].systemVersion;
-  if ([osVersion versionStringCompare:@"3.2"] != NSOrderedAscending) {
-    shadowYOffset = _offset.height;
-  }
-
   [context.shape addToPath:context.frame];
-  CGContextSetShadowWithColor(ctx, CGSizeMake(_offset.width, shadowYOffset), _blur,
+  CGContextSetShadowWithColor(ctx, CGSizeMake(_offset.width, _offset.height), _blur,
                               _color.CGColor);
   CGContextBeginTransparencyLayer(ctx, nil);
   [self.next draw:context];

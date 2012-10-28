@@ -108,7 +108,7 @@ static TTURLRequestQueue* gMainQueue = nil;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (BOOL)dataExistsInDocuments:(NSString*)URL {
-  NSString* path = TTPathForDocumentsResource([URL substringFromIndex:12]);
+  NSString* path = TTPathForFileResource([URL substringFromIndex:12]);
   NSFileManager* fm = [NSFileManager defaultManager];
   return [fm fileExistsAtPath:path];
 }
@@ -131,7 +131,7 @@ static TTURLRequestQueue* gMainQueue = nil;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSData*)loadFromDocuments:(NSString*)URL error:(NSError**)error {
-  NSString* path = TTPathForDocumentsResource([URL substringFromIndex:12]);
+  NSString* path = TTPathForFileResource([URL substringFromIndex:12]);
   NSFileManager* fm = [NSFileManager defaultManager];
   if ([fm fileExistsAtPath:path]) {
     return [NSData dataWithContentsOfFile:path];
@@ -169,8 +169,8 @@ static TTURLRequestQueue* gMainQueue = nil;
       *data = [self loadFromBundle:URL error:error];
       return YES;
 
-    } else if (TTIsDocumentsURL(URL)) {
-      *data = [self loadFromDocuments:URL error:error];
+    } else if (TTIsFileURL(URL)) {
+      *data = [self loadFromFile:URL error:error];
       return YES;
 
     } else {
@@ -197,7 +197,7 @@ static TTURLRequestQueue* gMainQueue = nil;
     if (TTIsBundleURL(URL)) {
       hasData = [self dataExistsInBundle:URL];
 
-    } else if (TTIsDocumentsURL(URL)) {
+    } else if (TTIsFileURL(URL)) {
       hasData = [self dataExistsInDocuments:URL];
 
     } else {

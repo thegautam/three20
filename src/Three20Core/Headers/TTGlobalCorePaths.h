@@ -22,9 +22,9 @@
 BOOL TTIsBundleURL(NSString* URL);
 
 /**
- * @return YES if the URL begins with "documents://"
+ * @return YES if the URL begins with "file://"
  */
-BOOL TTIsDocumentsURL(NSString* URL);
+BOOL TTIsFileURL(NSString* URL);
 
 /**
  * Used by TTPathForBundleResource to construct the bundle path.
@@ -50,6 +50,6 @@ NSBundle* TTGetDefaultBundle();
 NSString* TTPathForBundleResource(NSString* relativePath);
 
 /**
- * @return The documents path concatenated with the given relative path.
+ * @return The file path concatenated with the given relative path.
  */
-NSString* TTPathForDocumentsResource(NSString* relativePath);
+NSString* TTPathForFileResource(NSString* relativePath);

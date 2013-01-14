@@ -603,7 +603,7 @@ static const NSInteger kActivityLabelTag          = 96;
   _faceView = [[FaceView alloc] initWithFrame:screenFrame];
   [_innerView addSubview:_faceView];
 
-  int starViewHeight = 16;
+  int starViewHeight = screenFrame.size.height / 30;
   int progressFrameY = screenFrame.size.height - starViewHeight;
   CGRect progressFrame = CGRectMake(0, progressFrameY, screenFrame.size.width, starViewHeight);
   _progressView = [[UIImageView alloc] initWithImage:

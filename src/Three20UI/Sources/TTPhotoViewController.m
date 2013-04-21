@@ -258,7 +258,6 @@ static const NSInteger kActivityLabelTag          = 96;
   _scrollView.centerPageIndex = _centerPhotoIndex;
   [self loadImages];
   [self updateChrome];
-  [self playSound:_centerPhotoIndex];
 }
 
 
@@ -859,7 +858,6 @@ static const NSInteger kActivityLabelTag          = 96;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)scrollView:(TTScrollView*)scrollView doubleTapped:(UITouch*)touch {
-  [self playSound:_centerPhotoIndex];
 }
 
 
@@ -999,46 +997,6 @@ static const NSInteger kActivityLabelTag          = 96;
 
     _scrollView.scrollEnabled = YES;
   }
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark -
-#pragma mark ProgressStarViewDelegate
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)playSound:(NSInteger)currentIndex {
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
-
-    NSURL *voice = [_photoSource voiceAtIndex:currentIndex];
-    NSError *error;
-
-    if (!_player) {
-        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:voice error:&error];
-        if (!_player)
-        {
-            NSLog(@"Can't play %@ %@", [voice path], [error localizedDescription]);
-            return;
-        }
-    }
-    else
-    {
-        if ([_player isPlaying])
-        {
-            [_player stop];
-        }
-
-        if (![_player initWithContentsOfURL:voice error:&error])
-        {
-            NSLog(@"Can't play %@ %@", [voice path], [error localizedDescription]);
-            return;
-        }
-    }
-
-    [_player setVolume:0.8];
-    [_player play];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

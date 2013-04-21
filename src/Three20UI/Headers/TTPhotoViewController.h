@@ -131,9 +131,4 @@
  */
 - (void)showActivity:(NSString*)title;
 
-/**
- * Start playing the sound for current photo.
- */
-- (void)playSound:(NSInteger)currentIndex;
-
 @end

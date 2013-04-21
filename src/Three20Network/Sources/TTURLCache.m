@@ -247,8 +247,8 @@ static NSMutableDictionary* gNamedCaches = nil;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (BOOL)imageExistsFromDocuments:(NSString*)URL {
-  NSString* path = TTPathForDocumentsResource([URL substringFromIndex:12]);
+- (BOOL)imageExistsFromFile:(NSString*)URL {
+  NSString* path = TTPathForFileResource([URL substringFromIndex:12]);
   NSFileManager* fm = [NSFileManager defaultManager];
   return [fm fileExistsAtPath:path];
 }
@@ -262,8 +262,8 @@ static NSMutableDictionary* gNamedCaches = nil;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (UIImage*)loadImageFromDocuments:(NSString*)URL {
-  NSString* path = TTPathForDocumentsResource([URL substringFromIndex:12]);
+- (UIImage*)loadImageFromFile:(NSString*)URL {
+  NSString* path = TTPathForFileResource(URL);
   return [UIImage imageWithContentsOfFile:path];
 }
 
@@ -450,10 +450,10 @@ static NSMutableDictionary* gNamedCaches = nil;
         hasImage = [self imageExistsFromBundle:[TTURLCache doubleImageURLPath:URL]];
       }
 
-    } else if (TTIsDocumentsURL(URL)) {
-      hasImage = [self imageExistsFromDocuments:URL];
+    } else if (TTIsFileURL(URL)) {
+      hasImage = [self imageExistsFromFile:URL];
       if (!hasImage) {
-        hasImage = [self imageExistsFromDocuments:[TTURLCache doubleImageURLPath:URL]];
+        hasImage = [self imageExistsFromFile:[TTURLCache doubleImageURLPath:URL]];
       }
 
     }
@@ -478,8 +478,8 @@ static NSMutableDictionary* gNamedCaches = nil;
       image = [self loadImageFromBundle:URL];
       [self storeImage:image forURL:URL];
 
-    } else if (TTIsDocumentsURL(URL)) {
-      image = [self loadImageFromDocuments:URL];
+    } else if (TTIsFileURL(URL)) {
+      image = [self loadImageFromFile:URL];
       [self storeImage:image forURL:URL];
     }
   }

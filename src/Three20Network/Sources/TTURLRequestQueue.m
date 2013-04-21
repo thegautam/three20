@@ -130,7 +130,7 @@ static TTURLRequestQueue* gMainQueue = nil;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (NSData*)loadFromDocuments:(NSString*)URL error:(NSError**)error {
+- (NSData*)loadFromFile:(NSString*)URL error:(NSError**)error {
   NSString* path = TTPathForFileResource([URL substringFromIndex:12]);
   NSFileManager* fm = [NSFileManager defaultManager];
   if ([fm fileExistsAtPath:path]) {

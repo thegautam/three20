@@ -20,8 +20,6 @@
 #import "Three20UI/TTScrollViewDataSource.h"
 #import "Three20UI/TTThumbsViewControllerDelegate.h"
 #import "Three20UI/FaceView.h"
-#import "Three20UI/ProgressStarView.h"
-#import "Three20UI/StarAnimationView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -33,8 +31,7 @@
 @interface TTPhotoViewController : TTModelViewController <
   TTScrollViewDelegate,
   TTScrollViewDataSource,
-  TTThumbsViewControllerDelegate,
-  ProgressStarViewDelegate
+  TTThumbsViewControllerDelegate
 > {
   id<TTPhoto>       _centerPhoto;
   NSInteger         _centerPhotoIndex;
@@ -49,8 +46,6 @@
   UIBarButtonItem*  _previousButton;
 
   UIImageView*      _progressView;
-  ProgressStarView* _progressStarView;
-  StarAnimationView* _starAnimationView;
   CGRect            _starAnimationFrame;
 
   TTStyle*          _captionStyle;
@@ -71,6 +66,8 @@
   id<TTPhotoSource> _photoSource;
 
   AVAudioPlayer *_player;
+
+  id<TTScrollViewDelegate> _downstreamScrollViewDelegate;
 }
 
 /**
@@ -107,7 +104,8 @@
 @property (readonly) int progressCount;
 
 - (id)initWithPhoto:(id<TTPhoto>)photo;
-- (id)initWithPhotoSource:(id<TTPhotoSource>)photoSource;
+- (id)initWithPhotoSource:(id<TTPhotoSource>)photoSource
+			 scrollViewDelegate:(id<TTScrollViewDelegate>)scrollViewDelegate;
 
 /**
  * Creates a photo view for a new page.

@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		565766D412DA8A1000C59D8A /* StarAnimationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 565766D312DA8A1000C59D8A /* StarAnimationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		565766D612DA8A1F00C59D8A /* StarAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 565766D512DA8A1F00C59D8A /* StarAnimationView.m */; };
-		56699407125C29BD00359742 /* ProgressStarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 56699406125C29BD00359742 /* ProgressStarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		56699409125C29D000359742 /* ProgressStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56699408125C29D000359742 /* ProgressStarView.m */; };
 		5669940B125C29DE00359742 /* FaceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5669940A125C29DE00359742 /* FaceView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5669940D125C29EC00359742 /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5669940C125C29EC00359742 /* FaceView.m */; };
 		666E18E912945430001C1D97 /* TTSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E18E712945430001C1D97 /* TTSplitViewController.m */; };
@@ -447,11 +442,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressViewDelegate.h; path = Headers/ProgressViewDelegate.h; sourceTree = "<group>"; };
-		565766D312DA8A1000C59D8A /* StarAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarAnimationView.h; path = Headers/StarAnimationView.h; sourceTree = "<group>"; };
-		565766D512DA8A1F00C59D8A /* StarAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarAnimationView.m; path = Sources/StarAnimationView.m; sourceTree = "<group>"; };
-		56699406125C29BD00359742 /* ProgressStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressStarView.h; path = Headers/ProgressStarView.h; sourceTree = "<group>"; };
-		56699408125C29D000359742 /* ProgressStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressStarView.m; path = Sources/ProgressStarView.m; sourceTree = "<group>"; };
 		5669940A125C29DE00359742 /* FaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FaceView.h; path = Headers/FaceView.h; sourceTree = "<group>"; };
 		5669940C125C29EC00359742 /* FaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaceView.m; path = Sources/FaceView.m; sourceTree = "<group>"; };
 		666E18E712945430001C1D97 /* TTSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTSplitViewController.m; path = Sources/TTSplitViewController.m; sourceTree = "<group>"; };
@@ -799,18 +789,6 @@
 			name = FaceView;
 			sourceTree = "<group>";
 		};
-		56699405125C29A400359742 /* StarProgressView */ = {
-			isa = PBXGroup;
-			children = (
-				565766D512DA8A1F00C59D8A /* StarAnimationView.m */,
-				565766D312DA8A1000C59D8A /* StarAnimationView.h */,
-				565766D112DA89AC00C59D8A /* ProgressViewDelegate.h */,
-				56699408125C29D000359742 /* ProgressStarView.m */,
-				56699406125C29BD00359742 /* ProgressStarView.h */,
-			);
-			name = StarProgressView;
-			sourceTree = "<group>";
-		};
 		66ADC8C31290ABDD00855386 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1040,7 +1018,6 @@
 		6E6457AE1184D91100F08CB1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				56699405125C29A400359742 /* StarProgressView */,
 				56699402125C299B00359742 /* FaceView */,
 				6E64554F1184D4C500F08CB1 /* TTView.h */,
 				6E6456781184D4DA00F08CB1 /* TTView.m */,
@@ -1920,10 +1897,7 @@
 				6E86A8DB118CBF7500662DA5 /* TTNavigatorWindow.h in Headers */,
 				6E60820311B0C32600C93CD4 /* TTNavigationController.h in Headers */,
 				6ECCA60011C0C105002296C7 /* TTLauncherHighlightView.h in Headers */,
-				56699407125C29BD00359742 /* ProgressStarView.h in Headers */,
 				5669940B125C29DE00359742 /* FaceView.h in Headers */,
-				565766D212DA89AC00C59D8A /* ProgressViewDelegate.h in Headers */,
-				565766D412DA8A1000C59D8A /* StarAnimationView.h in Headers */,
 				66ADC8CF1290AC1200855386 /* TTExtensionsController.h in Headers */,
 				66ADCDA31291AA7E00855386 /* TTExtensionInfoController.h in Headers */,
 				666E18F51294543F001C1D97 /* TTSplitViewController.h in Headers */,
@@ -2289,9 +2263,7 @@
 				6E86A8EC118CBF8E00662DA5 /* TTNavigatorWindow.m in Sources */,
 				6E60820111B0C31400C93CD4 /* TTNavigationController.m in Sources */,
 				6ECCA5FE11C0C0F6002296C7 /* TTLauncherHighlightView.m in Sources */,
-				56699409125C29D000359742 /* ProgressStarView.m in Sources */,
 				5669940D125C29EC00359742 /* FaceView.m in Sources */,
-				565766D612DA8A1F00C59D8A /* StarAnimationView.m in Sources */,
 				66ADC8C91290AC0200855386 /* TTExtensionsController.m in Sources */,
 				66ADCD9D1291AA7100855386 /* TTExtensionInfoController.m in Sources */,
 				666E18E912945430001C1D97 /* TTSplitViewController.m in Sources */,

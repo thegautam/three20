@@ -75,7 +75,6 @@ static const NSInteger kActivityLabelTag          = 96;
 @synthesize captionStyle      = _captionStyle;
 @synthesize photoSource       = _photoSource;
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -114,10 +113,12 @@ static const NSInteger kActivityLabelTag          = 96;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)initWithPhotoSource:(id<TTPhotoSource>)photoSource {
+- (id)initWithPhotoSource:(id<TTPhotoSource>)photoSource
+			 scrollViewDelegate:(id<TTScrollViewDelegate>)scrollViewDelegate{
 	self = [self initWithNibName:nil bundle:nil];
   if (self) {
-    self.photoSource = photoSource;
+		self.photoSource = photoSource;
+		_downstreamScrollViewDelegate = scrollViewDelegate;
   }
 
   return self;
@@ -212,73 +213,6 @@ static const NSInteger kActivityLabelTag          = 96;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)animateStar {
-  // Bounces the star back to the center.
-  CALayer *welcomeLayer = _starAnimationView.layer;
-
-  // Create a keyframe animation to follow a path back to the center.
-  CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-  bounceAnimation.removedOnCompletion = NO;
-
-  CGFloat animationDuration = 0.5;
-
-  // Create the path for the bounces.
-  CGMutablePathRef thePath = CGPathCreateMutable();
-
-  CGFloat midX = _progressStarView.center.x;
-  CGFloat midY = _progressStarView.center.y;
-  CGFloat originalOffsetX = _starAnimationView.center.x - midX;
-  CGFloat originalOffsetY = _starAnimationView.center.y - midY;
-  CGFloat offsetDivider = 4.0;
-
-  BOOL stopBouncing = NO;
-
-  // Start the path at the star's current location.
-  CGPathMoveToPoint(thePath, NULL, _starAnimationView.center.x, _starAnimationView.center.y);
-  CGPathAddLineToPoint(thePath, NULL, midX, midY);
-
-  // Add to the bounce path in decreasing excursions from the center.
-  while (stopBouncing != YES) {
-    CGPathAddLineToPoint(thePath, NULL,
-        midX + originalOffsetX/offsetDivider, midY + originalOffsetY/offsetDivider);
-    CGPathAddLineToPoint(thePath, NULL, midX, midY);
-
-    offsetDivider += 4;
-    animationDuration += 1/offsetDivider;
-    if ((abs(originalOffsetX/offsetDivider) < 6) && (abs(originalOffsetY/offsetDivider) < 6)) {
-      stopBouncing = YES;
-    }
-  }
-
-  bounceAnimation.path = thePath;
-  bounceAnimation.duration = animationDuration;
-  CGPathRelease(thePath);
-
-  // Create a basic animation to restore the size of the view.
-  CABasicAnimation *transformAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-  transformAnimation.removedOnCompletion = YES;
-  transformAnimation.duration = animationDuration;
-  transformAnimation.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 20, 20)];
-
-  // Create an animation group to combine the keyframe and basic animations.
-  CAAnimationGroup *theGroup = [CAAnimationGroup animation];
-
-  // Set self as the delegate to allow for a callback to reenable user interaction.
-  theGroup.delegate = self;
-  theGroup.duration = animationDuration;
-  theGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-  theGroup.animations = [NSArray arrayWithObjects:transformAnimation, bounceAnimation, nil];
-
-  // Add the animation group to the layer.
-  [welcomeLayer addAnimation:theGroup forKey:@"animatestarAnimationViewToCenter"];
-
-  // Set the view's center and transformation to the original values
-  // in preparation for the end of the animation.
-  _starAnimationView.center = _progressStarView.center;
-  _starAnimationView.transform = CGAffineTransformIdentity;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)updateChrome {
   if (_photoSource.numberOfPhotos < 2) {
     self.title = _photoSource.title;
@@ -309,16 +243,6 @@ static const NSInteger kActivityLabelTag          = 96;
   BOOL nextEnabled = _centerPhotoIndex >= 0 && _centerPhotoIndex < _photoSource.numberOfPhotos-1;
   [_segmentedControl setEnabled:_centerPhotoIndex > 0 forSegmentAtIndex:0];
   [_segmentedControl setEnabled:nextEnabled forSegmentAtIndex:1];
-
-  // Reset the animation frame position.
-  _starAnimationView.frame = _starAnimationFrame;
-
-  // Refresh the animation and progress views.
-  [_starAnimationView setNeedsDisplay];
-  [_progressStarView setNeedsDisplay];
-
-  // Animate.
-  [self animateStar];
 }
 
 
@@ -603,26 +527,6 @@ static const NSInteger kActivityLabelTag          = 96;
   _faceView = [[FaceView alloc] initWithFrame:screenFrame];
   [_innerView addSubview:_faceView];
 
-  int starViewHeight = 16;
-  int progressFrameY = screenFrame.size.height - starViewHeight;
-  CGRect progressFrame = CGRectMake(0, progressFrameY, screenFrame.size.width, starViewHeight);
-  _progressView = [[UIImageView alloc] initWithImage:
-                   TTIMAGE(@"bundle://Three20.bundle/images/wood.png")];
-  _progressView.frame = progressFrame;
-  [_innerView addSubview:_progressView];
-
-  _progressStarView = [[ProgressStarView alloc] initWithFrame:progressFrame];
-  _progressStarView.delegate = self;
-  [_innerView addSubview:_progressStarView];
-
-  // Animation view for stars.
-  int starAnimationFrameY = screenFrame.size.height - (starViewHeight * 3);
-  _starAnimationFrame = CGRectMake(0, starAnimationFrameY, screenFrame.size.width, starViewHeight);
-  _starAnimationView = [[StarAnimationView alloc] initWithFrame:_starAnimationFrame];
-  _starAnimationView.delegate = self;
-  [_innerView addSubview:_starAnimationView];
-
-
   _scrollView = [[TTScrollView alloc] initWithFrame:screenFrame];
   _scrollView.delegate = self;
   _scrollView.dataSource = self;
@@ -652,8 +556,6 @@ static const NSInteger kActivityLabelTag          = 96;
   TT_RELEASE_SAFELY(_scrollView);
   TT_RELEASE_SAFELY(_faceView);
   TT_RELEASE_SAFELY(_progressView);
-  TT_RELEASE_SAFELY(_progressStarView);
-  TT_RELEASE_SAFELY(_starAnimationView);
   TT_RELEASE_SAFELY(_segmentedControl);
   TT_RELEASE_SAFELY(_photoStatusView);
 }
@@ -896,6 +798,8 @@ static const NSInteger kActivityLabelTag          = 96;
     [self moveToPhotoAtIndex:pageIndex withDelay:YES];
     [self refresh];
   }
+	// Send message even when equal so we can animate the first star.
+	[_downstreamScrollViewDelegate scrollView:scrollView didMoveToPageAtIndex:pageIndex];
 }
 
 
@@ -1104,18 +1008,9 @@ static const NSInteger kActivityLabelTag          = 96;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (int)totalCount {
-    return _photoSource.numberOfPhotos;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (int)progressCount {
-    return _centerPhotoIndex + 1;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)playSound:(NSInteger)currentIndex {
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
 
     NSURL *voice = [_photoSource voiceAtIndex:currentIndex];
     NSError *error;

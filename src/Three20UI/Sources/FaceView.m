@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 #define pi 3.1417
-#define R ((double)random()/(uint)(1<<32-1))
+#define R ((double)random()/(uint)(1<<31))
 
 #import "FaceView.h"
 

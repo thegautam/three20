@@ -46,6 +46,5 @@
 
 - (id<TTPhoto>)photoAtIndex:(NSInteger)index;
 - (void) updatePreviousIndex:(NSInteger)centerPhotoIndex;
-- (NSURL *)voiceAtIndex:(NSInteger)index;
 
 @end

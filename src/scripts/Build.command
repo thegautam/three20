@@ -133,6 +133,9 @@ Process()
 
   xcodebuild -sdk $BUILD_DEVICE_SDK -target $2 -configuration $BUILD_CONFIGURATION -project $1.xcodeproj build
   xcodebuild -sdk $BUILD_SIMULATOR_SDK -target $2 -configuration $BUILD_CONFIGURATION -project $1.xcodeproj build
+
+  cp ../../src/Three20/Headers/Three20.h ../../Build/Products/three20/Three20/Three20.h
+  cp ../../src/Three20/Headers/Three20+Additions.h ../../Build/Products/three20/Three20/Three20+Additions.h
 }
 
 Process Three20UI Three20UI

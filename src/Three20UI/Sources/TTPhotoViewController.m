@@ -806,7 +806,7 @@ static const NSInteger kActivityLabelTag          = 96;
 - (void)scrollViewWillBeginDragging:(TTScrollView *)scrollView {
   [self cancelImageLoadTimer];
   [self showCaptions:NO];
-  [self showBars:NO animated:YES];
+  [self showBars:YES animated:YES];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

@@ -307,13 +307,13 @@ TT_FIX_CATEGORY_BUG(UIViewControllerAdditions)
     #ifdef __IPHONE_3_2
     if ([[UIApplication sharedApplication]
          respondsToSelector:@selector(setStatusBarHidden:withAnimation:)])
-      [[UIApplication sharedApplication] setStatusBarHidden:!show
+      [[UIApplication sharedApplication] setStatusBarHidden:YES
                                               withAnimation:(animated
                                                              ? UIStatusBarAnimationFade
                                                              :UIStatusBarAnimationNone)];
     else
   #endif
-    [[UIApplication sharedApplication] setStatusBarHidden:!show animated:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:animated];
   }
 
   if (animated) {

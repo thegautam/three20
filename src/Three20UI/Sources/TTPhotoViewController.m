@@ -797,6 +797,10 @@ static const NSInteger kActivityLabelTag          = 96;
     [self moveToPhotoAtIndex:pageIndex withDelay:YES];
     [self refresh];
   }
+
+  if (pageIndex == _photoSource.numberOfPhotos-1) {
+    [self showBars:YES animated:YES];
+  }
 	// Send message even when equal so we can animate the first star.
 	[_downstreamScrollViewDelegate scrollView:scrollView didMoveToPageAtIndex:pageIndex];
 }
@@ -806,7 +810,7 @@ static const NSInteger kActivityLabelTag          = 96;
 - (void)scrollViewWillBeginDragging:(TTScrollView *)scrollView {
   [self cancelImageLoadTimer];
   [self showCaptions:NO];
-  [self showBars:YES animated:YES];
+  [self showBars:NO animated:YES];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

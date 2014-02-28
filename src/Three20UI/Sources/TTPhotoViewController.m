@@ -793,16 +793,21 @@ static const NSInteger kActivityLabelTag          = 96;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)scrollView:(TTScrollView*)scrollView didMoveToPageAtIndex:(NSInteger)pageIndex {
+  NSInteger oldIndex = _centerPhotoIndex;
   if (pageIndex != _centerPhotoIndex) {
     [self moveToPhotoAtIndex:pageIndex withDelay:YES];
     [self refresh];
+
+    // Send message even when equal so we can animate the first star.
+    [_downstreamScrollViewDelegate scrollView:scrollView didMoveToPageAtIndex:pageIndex];
   }
 
-  if (pageIndex == _photoSource.numberOfPhotos-1) {
-    [self showBars:YES animated:YES];
-  }
-	// Send message even when equal so we can animate the first star.
-	[_downstreamScrollViewDelegate scrollView:scrollView didMoveToPageAtIndex:pageIndex];
+    _isLastPhoto = _centerPhotoIndex == _photoSource.numberOfPhotos-1 &&
+                oldIndex >= _centerPhotoIndex;
+
+    if (_isLastPhoto) {
+      [self showBars:YES animated:YES];
+    }
 }
 
 
@@ -810,7 +815,7 @@ static const NSInteger kActivityLabelTag          = 96;
 - (void)scrollViewWillBeginDragging:(TTScrollView *)scrollView {
   [self cancelImageLoadTimer];
   [self showCaptions:NO];
-  [self showBars:NO animated:YES];
+  [self showBars:_isLastPhoto animated:YES];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -979,7 +984,6 @@ static const NSInteger kActivityLabelTag          = 96;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)didMoveToPhoto:(id<TTPhoto>)photo fromPhoto:(id<TTPhoto>)fromPhoto {
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)showActivity:(NSString*)title {

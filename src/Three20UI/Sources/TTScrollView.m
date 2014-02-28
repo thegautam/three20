@@ -1599,8 +1599,9 @@ static const CGFloat kFrameDuration = 1.0/40.0f;
 
   if (_visiblePageIndex != _centerPageIndex && self.centerPage) {
     _visiblePageIndex = _centerPageIndex;
-    [_delegate scrollView:self didMoveToPageAtIndex:_centerPageIndex];
   }
+
+  [_delegate scrollView:self didMoveToPageAtIndex:_centerPageIndex];
 
   // Reset the layout animated flag.
   _nextLayoutAnimated = NO;

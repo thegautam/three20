@@ -68,6 +68,8 @@
   AVAudioPlayer *_player;
 
   id<TTScrollViewDelegate> _downstreamScrollViewDelegate;
+
+  BOOL _isLastPhoto;
 }
 
 /**

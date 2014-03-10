@@ -93,6 +93,7 @@ static const NSInteger kActivityLabelTag          = 96;
     self.navigationBarTintColor = nil;
     self.wantsFullScreenLayout = YES;
     self.hidesBottomBarWhenPushed = YES;
+    _centerPhotoIndex = -1;
 
     self.defaultImage = TTIMAGE(@"bundle://Three20.bundle/images/photoDefault.png");
   }
@@ -115,10 +116,10 @@ static const NSInteger kActivityLabelTag          = 96;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithPhotoSource:(id<TTPhotoSource>)photoSource
 			 scrollViewDelegate:(id<TTScrollViewDelegate>)scrollViewDelegate{
-	self = [self initWithNibName:nil bundle:nil];
+  self = [self initWithNibName:nil bundle:nil];
   if (self) {
-		self.photoSource = photoSource;
-		_downstreamScrollViewDelegate = scrollViewDelegate;
+    _downstreamScrollViewDelegate = scrollViewDelegate;
+    self.photoSource = photoSource;
   }
 
   return self;
@@ -271,9 +272,11 @@ static const NSInteger kActivityLabelTag          = 96;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)moveToPhotoAtIndex:(NSInteger)photoIndex withDelay:(BOOL)withDelay {
+  NSInteger previousIndex = _centerPhotoIndex;
   _centerPhotoIndex = photoIndex == TT_NULL_PHOTO_INDEX ? 0 : photoIndex;
   [self moveToPhoto:[_photoSource photoAtIndex:_centerPhotoIndex]];
   _delayLoad = withDelay;
+  [self didMoveToPhotoIndex:_centerPhotoIndex fromIndex:previousIndex];
 }
 
 
@@ -794,20 +797,18 @@ static const NSInteger kActivityLabelTag          = 96;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)scrollView:(TTScrollView*)scrollView didMoveToPageAtIndex:(NSInteger)pageIndex {
   NSInteger oldIndex = _centerPhotoIndex;
+
   if (pageIndex != _centerPhotoIndex) {
     [self moveToPhotoAtIndex:pageIndex withDelay:YES];
     [self refresh];
-
-    // Send message even when equal so we can animate the first star.
-    [_downstreamScrollViewDelegate scrollView:scrollView didMoveToPageAtIndex:pageIndex];
   }
 
-    _isLastPhoto = _centerPhotoIndex == _photoSource.numberOfPhotos-1 &&
+  _isLastPhoto = _centerPhotoIndex == _photoSource.numberOfPhotos-1 &&
                 oldIndex >= _centerPhotoIndex;
 
-    if (_isLastPhoto) {
-      [self showBars:YES animated:YES];
-    }
+  if (_isLastPhoto) {
+    [self showBars:YES animated:YES];
+  }
 }
 
 
@@ -945,7 +946,6 @@ static const NSInteger kActivityLabelTag          = 96;
     [_photoSource release];
     _photoSource = [photoSource retain];
 
-    [self moveToPhotoAtIndex:0 withDelay:NO];
     self.model = _photoSource;
   }
 }
@@ -982,7 +982,16 @@ static const NSInteger kActivityLabelTag          = 96;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)didMoveToPhoto:(id<TTPhoto>)photo fromPhoto:(id<TTPhoto>)fromPhoto {
+- (void)didMoveToPhotoIndex:(NSInteger)toIndex fromIndex:(NSInteger)fromIndex {
+    if (toIndex != fromIndex)
+    {
+       [_downstreamScrollViewDelegate scrollView:_scrollView
+                            didMoveToPageAtIndex:toIndex];
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)didMoveToPhoto:(id<TTPhoto>)toPhoto fromPhoto:(id<TTPhoto>)fromPhoto {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
